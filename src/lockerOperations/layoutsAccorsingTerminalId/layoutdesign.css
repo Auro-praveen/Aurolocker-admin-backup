@@ -1,0 +1,98 @@
+.layout-container-pmccngf {
+  
+        width: 500px;
+        margin: auto;
+        text-align: center;
+      
+}
+
+.rendering-common-layout{
+        margin: auto !important;
+        position: relative;
+        width: 78vh !important;
+}
+
+
+.dynamiclayout-malfunction{
+        background-color: #0c1533cb !important;
+        color: rgb(255, 255, 255) !important;
+        margin: 5px !important;
+        border-radius: 8px;
+        transition: .3s ease-out;
+        cursor: pointer;
+}
+
+.dynamic-layout-border{
+        width: fit-content;
+        /* border: 1px solid red; */
+        box-shadow: 0px 0px 8px 1px #9c8eb3;
+        margin: auto;
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    .locker-dynamic-row{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .dynamic-display-locker{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .dynamic-qr-container {
+        background-color: #817979;
+        color: #ffffff;
+        box-shadow: 0px 0px 4px 1px #929090;
+        cursor: auto !important;
+    }
+    
+    .dynamiclayout-selected{
+        background: #F17829 !important;
+        color: #1E367B !important; 
+        box-shadow: 0px 0px 4px 1px #1E367B;
+        cursor: pointer;
+    }
+    
+    .dynamiclayout-available {
+        background: #ffffff !important;
+        color: #F17829 !important; 
+        box-shadow: 0px 0px 4px 1px #0a943f;
+        cursor: pointer;
+    }
+    
+    .dynamiclayout-reserved{
+        background-color: #1E367B !important;
+        color: #F17829 !important;
+        box-shadow: 0px 0px 4px 1px #ff0000;
+        cursor: auto !important;
+    }
+    
+
+
+@media only screen and (max-width: 600px){ 
+
+    .layout-container-pmccngf {
+  
+        width: 250px;
+        margin: auto;
+        text-align: center;
+        display: flex;
+        position: relative;
+      
+}
+
+.dynamic-layout-border{
+    width: fit-content;
+    /* border: 1px solid red; */
+    box-shadow: 0px 0px 8px 1px #9c8eb3;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+}

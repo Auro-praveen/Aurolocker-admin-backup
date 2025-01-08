@@ -1,0 +1,39 @@
+
+.side-nav-header {
+    position: fixed;
+    margin-bottom: 5px;
+    padding: 12px;
+    background-color: #120c4b;
+    width: 100%;
+    color: #ffc08c;
+    font-family: sans-serif;
+    z-index: 1;
+
+}
+
+.side-nav-rightContent h2 {
+    padding: 4px;
+    cursor: pointer;
+}
+
+.side-nav-head-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.side-nav-leftContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.side-nav-leftContent h6{
+    margin-left: 8px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.side-nav-leftContent h6:last-child {
+    margin-right: 10px;
+}

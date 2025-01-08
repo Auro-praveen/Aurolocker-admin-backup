@@ -1,0 +1,29 @@
+
+.logo-contain {
+    /* top: 50px; */
+    width: 16pc;
+    background-color: rgb(45, 97, 90);
+    border-radius: 8px;
+    margin-bottom: 25px;
+    margin: auto !important;
+    /* margin: 50px 50px 200px 100px; */
+
+    box-shadow: 0px 0px 3px 2px #b8b8b8;
+    padding: 25px;
+    
+}
+
+.logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.log {
+    cursor: pointer;
+    transition: 0.3s ;
+}
+
+.log:hover {
+    transform: scale(1.1);
+}

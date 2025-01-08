@@ -1,0 +1,17 @@
+{
+  "permissions": [
+    "transaction_details",
+    "transaction_history",
+    "refund",
+    "user_creation",
+    "locker_operation",
+    "locker_category",
+    "site_registration",
+    "release_locker",
+    "firmware_update",
+    "charts",
+    "xl_access"
+  ],
+  "user_type": ["Admin", "Sub-Admin", "Mall-Authority"],
+  "appAccessAllowed": ["MALL-LOCKERS", "TEMPLE-LOCKERS", "STATION-LOCKERS"]
+}

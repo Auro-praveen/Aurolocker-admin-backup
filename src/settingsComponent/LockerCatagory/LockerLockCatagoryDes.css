@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&family=Ubuntu:wght@300;500;700&display=swap');
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.locker-catagory-head {
+    color: #b5004b;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+
+.locker-catagory-container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    width: auto;
+    margin: auto;
+}
+
+.locker-locks-form {
+    background-color: #fafafa;
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    border: none;
+    box-shadow: 0px 0px 6px 0px rgb(155, 155, 155);
+}
+
+.amount-container-heaer {
+    float: left;
+    text-align: center;
+    align-items: center;
+    margin-top: 25px;
+    color: #b5004b;
+}
+
+.locks-form-container {
+    padding: 50px;
+}
+
+.form-input-tag {
+    width: 100%;
+    outline: none;
+    border: 1px solid #b5004b;
+    padding: 5px 30px;
+    margin: 8px;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #e3e3e3;
+}
+
+.btn-submit {
+    background-color: #4d1031 !important;
+    width: 60%;
+    margin-top: 30px;
+    color: #fff !important;
+    border: none;
+}
+
+.btn-submit:hover {
+    color: #fff !important;
+    background-color: #104d2e !important;
+}
+
+.btn-submit:active {
+    box-shadow: 0px 0px 4px 4px #162561 !important;
+}
+
+/* 
+    To hide the input number increment and decrement
+Chrome, Safari, Edge, Opera */
+.input-num::-webkit-outer-spin-button,
+.input-num::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input-num[type=number] {
+  -moz-appearance: textfield;
+}
+
+.current-amount-container{
+    width: 100%;
+    background-color: #fff;
+    margin-top: 25px;
+    padding: 15px 5px;
+    box-shadow: 0px 0px 5px 0px #162561;
+    border-radius: 5px;
+}
+
+.loading-frame-container{
+    width: 100%;
+    background-color: #a3a3a398;
+    height: 100vh;
+    opacity: 0.8;
+    margin: auto;
+    padding-top: 20%;
+    position: fixed;
+}
+
+.loading-container {
+    text-align: center;
+    margin: 0px;
+}
+
+.fileLoader-icon{
+    margin: auto;
+    padding-top: 30%;
+}
+
+
+/* style sheet for the choose locker */
+
+.locks-window-container{
+    position: fixed ;
+    background-color: rgb(63, 63, 63);
+    color: rgb(255, 255, 255);
+    opacity: 0.7;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    text-align: center;
+}
+
+.locks-window {
+    background-color: #182f36;
+    color: #fff;
+    padding: 10px;
+    margin-left: 20%;
+    margin-top: 3%;
+    position: fixed;
+    width: 65%;
+    height: 85vh;
+    text-align: center;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    display: none;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.locks-window::-webkit-scrollbar {
+    display: none;
+}
+
+.close-locks-window{
+    position: fixed;
+    padding: 0px;
+    margin-left: 28%;
+    background-color: transparent;
+    border: none;
+    transition: .2s ease;
+     
+}
+.close-locks-window:hover {
+    transform: scale(1.1);
+}
+
+.lockBox-icon {
+    width: 20px !important;
+    height: 70px;
+    background-color: #9b6f6f !important;
+    color: #1f0091;
+    margin: 10px !important;
+    border-radius: 8px ;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+.lockBox-icon:hover {
+    background-color: #a7ffd3 !important;
+}
+
+.all-locks{
+    padding: 25px;
+    margin-top: 40px;
+}
+
+.non-selected-icon {
+    color: #fff;
+}
+
+.selected-icon {
+    color: rgb(56, 245, 128);
+}
+
+.selected-locks-btn {
+    text-align: center;
+    color: #fff;
+    background-color: #40545c;
+    border: 1px solid #fff;
+}
+
+.selected-locks-btn:hover {
+    background-color: #182f36;
+}
+
+.selected-locks-btn:active {
+    box-shadow: 0px 3px 0px 3px #fff !important;
+}
+
+.window-btn-container {
+    text-align: center;
+    position: fixed;
+    width: fit-content;
+    margin-bottom: 90px;
+}
+
+.choose-locks-btn {
+    width: 100% ;
+    background-color: #fff;
+    border: none;
+}
+
+.hours_slot_container {
+    margin-top: 50px;
+    border: 1px solid #182f36;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.choose-locks-btn:hover {
+    background-color: #00608c !important;
+    color: #fff;
+    border: none;
+}
+
+.selected-locks-field {
+    display: none;
+}
+
+.checkbox_container {
+
+    padding: 40px;
+    /* border: 1px solid #00608c; */
+    /* margin: auto; */
+}
+
+.btndaytype {
+    background-color: #942b57 !important;
+    color: #fff !important;
+    margin-top: 20px !important;
+}
+
+.no-term-alertWindow {
+    width: 400px;
+    margin: auto;
+    /* border: 1px solid #00608c; */
+    border-radius: 5px;
+    background-color: rgb(236, 199, 132);
+    color: #130007;
+    padding: 15px;
+    text-transform: capitalize;
+    box-shadow: 4px 4px 8px 0px rgb(95, 65, 9);;
+}
+
+.finalsubmitbtn-lock-cat {
+    background-color: #3c2faa !important;
+    color: #f1d79e !important;
+    margin-top: 20px !important;
+}
+
+
+.checkbox_container2_style {
+    /* margin: auto !important;
+    height: max-content !important; */
+    margin-left: 20% !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.input_number::-webkit-outer-spin-button,
+.input_number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.dailogue-content {
+    background-color: #3e8b65;
+    /* color: #85b390; */
+    padding: 10px;
+    margin: auto !important;
+
+}
+
+.dailogue-content-warning {
+    background-color: #996432;
+    padding: 10px;
+    margin: auto !important;
+}
+
+/* Firefox */
+.input_number[type=number] {
+  -moz-appearance: textfield;
+}
+
+@media only screen and (max-width: 600px) {
+    .checkbox_container2_style {
+        /* margin: auto !important; */
+        /* height: max-content !important; */
+        margin-left: 18% !important;
+        margin-bottom: 80px;
+    }
+
+    .no-term-alertWindow {
+        width: fit-content;
+    }
+}

@@ -1,0 +1,8 @@
+{ 
+    "serverUrl":"http://192.168.0.186:8080/AuroLocker/AuroClientRequest", 
+    "localServerPath":"http://192.168.0.198:8080/AuroAutoLocker/",
+    "stationServerUrl":"http://192.168.0.186:8080/AuroLocker/AuroClientRequest", 
+    "stationLocalServerPath":"http://192.168.0.198:8080/AuroStationLockers/",
+    "templeServerUrl":"http://192.168.0.186:8080/AuroLocker/AuroClientRequest", 
+    "templeLocalServerPath":"http://192.168.0.198:8080/AuroTempleLockers/"
+}

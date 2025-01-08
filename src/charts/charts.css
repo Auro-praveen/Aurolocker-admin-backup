@@ -1,0 +1,77 @@
+.mui-btn-group-non-selected {
+    background: #ffffff !important;
+    color: #000 !important;
+    transition: 0.5s ease !important;
+}
+
+.mui-btn-group-non-selected:hover {
+    background: #d7e7f1 !important;
+    color: #000 !important;
+    transition:  0.5s ease !important;
+}
+
+.mui-btn-group-selected {
+    background: #e61f1f !important;
+    color: #ffffff;
+    transition: 0.5s ease !important;
+    box-shadow: 0px 0px 4px 3px #8a8a8a !important;
+}
+
+.charts-container {
+    width: auto;
+    text-align: center;
+    
+    margin-bottom: 20px;
+}
+
+.btn-group-charts {
+    box-shadow: 0px 0px 2px 1px #121b4d !important;
+    margin-bottom: 10px;
+}
+
+.chart-view {
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 50px;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 3px #cccccc;
+}
+
+.history-chart-represent{
+    text-align: center !important;
+}
+
+.small-para{
+    text-align: center;
+    font-size: 12px;
+}
+
+.piechart-descr-total-collection{
+    margin-top: 10px;
+}
+
+.piechart-groups {
+    width: 90%;
+    /* box-shadow: 0px 0px 6px 4px #aaaaaa; */
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+.stacked-chart-container {
+    margin: 20px auto !important;
+    /* border: #121b4d; */
+    border-radius: 2px;
+    box-shadow: 0px 0px 4px 3px #cccccc;
+    width: 850px;
+}
+
+.stacked-chart-descr-head  {
+    color: #2e0000;
+}

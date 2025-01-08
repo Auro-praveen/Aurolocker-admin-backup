@@ -1,0 +1,12 @@
+.btn-siteReg {
+    margin-top: 20px;
+}
+
+.submitBtn:focus {
+    background-color: #4d1031 !important;
+    color: #fff;
+}
+
+.form-head-siteReg {
+    margin-bottom: 20px;
+}

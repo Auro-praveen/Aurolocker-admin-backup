@@ -1,0 +1,25 @@
+.toxlsheet-btn{
+    align-items: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.toxlsheet-container {
+    margin: auto;
+    text-align: center;
+}
+
+.h4-style {
+    color: rgb(15, 54, 114);
+    margin-bottom: 10px;
+}
+
+.part-retr-fields{
+    margin: auto !important;
+    align-items: center;
+    text-align: center;
+}
+
+.table-display {
+    margin-top: 30px;
+}

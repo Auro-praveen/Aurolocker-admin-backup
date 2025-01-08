@@ -1,0 +1,47 @@
+
+.tuckit-logo {
+    margin: 5px !important;
+    padding: 15px ;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.tuckit-logo:hover {
+    transform: scale(1.1);
+}
+
+.mall-auth-navbar{
+    top: 0;
+    background-color: #120c4b;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+    justify-content: space-between;
+}
+
+.mall-auth-logout-container{
+    color:  #fff !important;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.btn-mall-auth-navbar {
+    color: #fff !important;
+    margin-right: 10px !important;
+}
+
+.mall-auth-container{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.mall-auth-item-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.mall-auth-title{
+    margin-bottom: 20px;
+}

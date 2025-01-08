@@ -1,0 +1,15 @@
+{   
+    "test":"this is testing localhost path", 
+    "serverUrl":"http://192.168.0.186:8080/AuroLocker/AuroClientRequest", 
+    "localServerPath":"http://192.168.0.186:8080/AuroAutoLocker/",
+    "serverUrl":"http://app.tuckit.in:8041/AuroLocker/AuroClientRequest", 
+    "localServerPath":"http://app.tuckit.in:8041/AuroAutoLocker/",
+
+    "serverUrl":"http://192.168.0.140:8080/AuroTempleLBEngine/AuroClientRequest", 
+    "localServerPath":"http://192.168.0.198:8080/AuroAutoLocker/",
+
+
+    "serverUrl":"http://app.tuckit.in:8041/AuroLocker/AuroClientRequest", 
+    "localServerPath":"http://43.204.14.189:8080/AuroAutoLocker/"
+
+}

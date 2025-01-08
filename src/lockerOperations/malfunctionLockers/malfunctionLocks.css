@@ -1,0 +1,14 @@
+/* @media only screen and (max-width: 500px) {
+    .malfunction-cotnainer{
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden ;
+    }
+} */
+
+.commonlayout-btnContainer{
+
+    margin: auto ;
+    width: 300px;
+
+}

@@ -1,0 +1,50 @@
+
+.amount-refund-container{
+    margin: 20px;
+}
+
+.refund-amount-wind {
+    width: 60%;
+    padding: 5%;
+    box-shadow: 0px 0px 8px 0px rgb(131, 131, 131);
+    border-radius: 8px;
+    margin: auto;
+}
+
+.table-view-container {
+    margin: auto;
+}
+
+.refund-amount-container {
+    width: 50%;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px 0px rgb(77, 65, 65);
+    padding: 40px;
+    border-radius: 8px;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    z-index: 1;
+}
+
+.backround-cover {
+    background-color: rgba(56, 78, 153, 0.555);
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+}
+
+.close-icon {
+    float: right;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+    .refund-amount-container {
+        width: 100%;
+        left: 0;
+    }
+}

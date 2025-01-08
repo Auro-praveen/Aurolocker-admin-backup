@@ -1,0 +1,219 @@
+.dashboard-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+}
+
+.dashboard-item {
+    border-radius: 4px;
+    margin: 5px;
+    padding: 5px;
+    width: 180px;
+    transition: .3s ease-out;
+    font-weight: 500;
+    height: 120px;
+}
+
+.access-denied {
+    border :  1px solid #790101;
+    cursor: text;
+    background-color: rgb(122, 122, 122);
+    color: #ffffff;
+}
+
+.locker-open-alert {
+    cursor: pointer;
+    animation-name: lockopen-alert;
+    animation-duration: 1500ms;
+    animation-iteration-count: infinite;
+}
+
+.dashobaord-item-non-selected {
+    color: #031a80;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 6px 1px #696969;
+    cursor: pointer;
+}
+
+.dashboard-operation-items-container {
+    margin-top: -45px;
+    /* margin-left: -40px;
+    margin-right: -40px; */
+    padding: 30px;
+    overflow: hidden;
+    /* background-color: #e0decb; */
+    background-color: #d9e0e6f8;
+}
+
+.dashobaord-item-non-selected:hover {
+    background-color: rgb(228, 196, 167);
+    box-shadow: 0px 0px 6px 1px #7e7fe2;
+    color: #020350;
+    transform: scale(1.04);
+}
+
+.dashobaord-item-selected {
+    background-color: rgb(86, 49, 107);
+    box-shadow: 0px 0px 6px 1px #90839b;
+    color: #f86916;
+    cursor: pointer;
+}
+
+.dashboard-item:focus {
+    background-color: #031a80;
+}
+
+.bef-next-icon-btn {
+    display: none !important;      
+}
+
+.alertAnimation {
+    animation: alertAnimate infinite 1.5s !important;
+}
+
+@keyframes alertAnimate {
+    0%{
+        transform: rotate(0deg);
+    }
+    5%{
+        transform: rotate(0deg);
+    }
+    10%{
+        transform: rotate(0deg);
+    }
+    15%{
+        transform: rotate(0deg);
+    }
+    20%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(0deg);
+    }
+    30%{
+        transform: rotate(0deg);
+    }
+    35%{
+        transform: rotate(0deg);
+    }
+    40%{
+        transform: rotate(0deg);
+    }
+    45%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(0deg);
+    }
+    55%{
+        transform: rotate(0deg);
+    }
+    60%{
+        transform: rotate(0deg);
+    }
+    65%{
+        transform: rotate(0deg);
+    }
+    70%{
+        transform: rotate(0deg);
+    }
+    75%{
+        transform: rotate(0deg);
+    }
+    80%{
+        transform: rotate(0deg);
+    }
+    85%{
+        transform: rotate(0deg);
+    }
+    90%{
+        transform: rotate(0deg);
+    }
+    95%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes lockopen-alert {
+    0% {
+        background-color: #ffffff;
+        box-shadow: 0px 0px 6px 1px #49dbc3;
+    }
+    100% {
+        background-color: #db615d;
+        box-shadow: 0px 0px 6px 1px #20055e;
+        color: #fff;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+    .dashboard-items {
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        width: 100%;
+    }
+
+    .dashboard-item {
+        border-radius: 4px;
+        padding: 10px;
+        transition: .3s ease-out;
+        font-weight: 500;
+        height: 150px;
+        min-width: 150px !important;
+        margin-bottom: 25px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .dashboard-items {
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        width: 100%;
+    }
+
+    .dashboard-operation-items-container {
+        margin-top: -45px;
+        padding: 30px;
+        overflow: hidden;
+        width: 100% !important;
+    }
+
+    .dashboard-item {
+        border-radius: 4px;
+        padding: 10px;
+        transition: .3s ease-out;
+        font-weight: 500;
+        height: 150px;
+        min-width: 130px !important;
+        margin-bottom: 25px;
+    }
+
+    /* .dashboard-operation-items-container {
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+    } */
+    
+
+    /* .bef-next-icon-btn {
+        display: block !important;      
+        margin: auto !important;
+        text-align: center !important;
+        align-items: center !important;
+        margin-left: 44% !important;
+    }
+
+    .prev-btn {
+
+
+    }
+
+    .next-btn {
+
+    } */
+}

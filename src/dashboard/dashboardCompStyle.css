@@ -1,0 +1,15 @@
+.card-body-main {
+    border: none !important;
+    border-radius: 5px !important;
+    /* background-color: rgb(134, 133, 133) !important; */
+}
+
+card-body-main img:nth-of-type(odd) {
+    padding: 30px;
+    background-color: #db7f7f;
+    border-radius: 5px !important;
+}
+
+.col-block {
+    padding: 5px !important;
+}

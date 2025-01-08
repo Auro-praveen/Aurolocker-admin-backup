@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Merriweather:wght@400;700&family=Oswald:wght@300;500&family=Ubuntu:wght@300;500;700&display=swap');
+
+.locker-table-container {
+    font-family: 'Kanit', sans-serif;
+    width: 90%;
+    overflow: hidden;
+    margin: 10px 50px;
+    padding: 0px;
+    text-align: center;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+
+
+.table-conteiner tr td , th {
+    border: 1px solid rgb(23, 131, 131) !important;
+}
+
+.table-conteiner td, th {
+    padding: 15px 5px;
+    text-align: center;
+    width: fit-content;
+}
+
+.table-conteiner {
+    overflow-x: scroll;
+    margin: auto !important;
+}
+
+.table-conteiner th {
+    padding: 15px 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: #225475;
+    color: rgb(255, 255, 255);
+}
+
+.table-conteiner .td-open{
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #f3d2d2;
+    color: rgb(5, 0, 48);
+}
+
+.table-conteiner .td-data {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #ffffff;
+    color: rgb(5, 0, 51);
+}
+
+/* .table-conteiner td {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #e9f2f7;
+    color: rgb(5, 0, 51);
+} */
+
+.table-conteiner {
+    width: fit-content !important;
+    overflow: hidden;
+}
+
+.del-icon-table{
+    padding: 5px;
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+}
+
+.isloading-true {
+    cursor: auto !important;
+}
+
+.Total_Calculations {
+    background-color: #f1e2e1;
+    color: rgb(9, 0, 134);
+}
+
+@media only screen and (max-width: 600px) {
+    .locker-table-container{
+        font-family: 'Kanit', sans-serif;
+        width: 100%;
+        margin: 10px 0px;
+    }
+}
