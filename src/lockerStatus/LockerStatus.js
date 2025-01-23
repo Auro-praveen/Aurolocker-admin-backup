@@ -32,6 +32,7 @@ function LockerStatus() {
     rtime: "",
     status: "",
     userId: "",
+    boxstatus:""
   });
 
   const [stateName, setStateName] = useState("");
@@ -40,7 +41,7 @@ function LockerStatus() {
   const [selectedTerminalId, setSelectedTerminalId] = useState("");
   const [allTerminalIds, setAllTerminalIds] = useState([]);
 
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   // useEffect(() => {
   //   getTerminalIdsOfTransactionDetails();
@@ -50,7 +51,9 @@ function LockerStatus() {
 
   const lockerStatusFunction = (terminalID) => {
     fetch(
-      Auth.serverPaths.localAdminPath + "FetchLockerStatus?terminalId=" + terminalID,
+      Auth.serverPaths.localAdminPath +
+        "FetchLockerStatus?terminalId=" +
+        terminalID,
       {
         method: "GET",
         headers: {
@@ -77,6 +80,7 @@ function LockerStatus() {
             rtime: data.rtime,
             status: data.status,
             userId: data.userId,
+            boxstatus:data.boxtype
           });
         } else {
           setLockerStatus({});
@@ -93,7 +97,7 @@ function LockerStatus() {
   const getTerminalIdsOfTransactionDetails = () => {
     const getLocksObj = {
       PacketType: "gettermid",
-      type: "ACTIVE"
+      type: "ACTIVE",
     };
 
     console.log(getLocksObj);
@@ -108,14 +112,11 @@ function LockerStatus() {
       .then((data) => {
         console.log(data);
         if (data.responseCode === "avltd-200") {
-
           const termIdArr = data.terminalID[0].split(",");
           const termId = termIdArr[1].replace(/\s+g/, "").trim();
 
           setAllTerminalIds(data.terminalID);
           lockerStatusFunction(termId);
-
-
         } else if (data.responseCode === "notd-201") {
           alert("no terminalId found, refresh and try again");
         }
@@ -126,18 +127,12 @@ function LockerStatus() {
   };
 
   const chooseTerminalIdHEventHAndler = (e, value) => {
-
-
     if (value !== null) {
       setSelectedTerminalId(value);
-
       const termRes = value.split(",");
       const termId = termRes[1].replace(/\s+/g, "").trim();
-
       lockerStatusFunction(termId);
     }
-
-
   };
 
   const handleStateName = (stateName) => {
@@ -147,7 +142,10 @@ function LockerStatus() {
 
   const getStatewiseTerminals = async (stateName) => {
     const terminalIds = await commonApiForGetConenction(
-      Auth.serverPaths.localAdminPath + "FetchStates?value=" + stateName + "&type=ACTIVE"
+      Auth.serverPaths.localAdminPath +
+        "FetchStates?value=" +
+        stateName +
+        "&type=ACTIVE"
     );
 
     const terminalIdArr = terminalIds.terminals;
@@ -244,7 +242,7 @@ function LockerStatus() {
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}
-        // onClick={handleClose}
+          // onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

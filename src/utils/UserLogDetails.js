@@ -8,32 +8,52 @@ const logDetailContext = createContext(null);
 export const UserLogDetails = ({ children }) => {
   const [userLogDetails, setUserLogDetails] = useState();
 
-  const Auth = useAuth()
-  const storeUserLogs = (argObj) => {
+  const Auth = useAuth();
+
+  const storeUserLogs = async (argObj) => {
     // const storeUrl = "http://192.168.0.198:8080/AuroAutoLocker/UserLogDetails";
     const date = getCurrentDate();
     const time = getCurrentTime();
     console.log("inside StoreUSerLogs -- ");
-    let jsonObj = null;
+    let jsonObj;
     if (argObj.eventType === "login") {
       jsonObj = {
-      date: date,
-      time: time,
-      ...argObj,
-    };
+        date: date,
+        time: time,
+        packetType: "STORE_LOGS",
+        ...argObj,
+      };
     } else {
-      console.log("userName -- "+Auth.user)
+      console.log("userName -- " + Auth.user);
       jsonObj = {
-      date: date,
-      time: time,
-      username: Auth.user,
-      ...argObj,
-    };
+        date: date,
+        time: time,
+        username: Auth.user,
+        packetType: "STORE_LOGS",
+        ...argObj,
+      };
     }
 
     setUserLogDetails(jsonObj);
 
-    fetch(Auth.serverPaths.localAdminPath + "UserLogDetails", {
+    /*
+
+    // this is for handling old logs here
+
+        fetch(Auth.serverPaths.localAdminPath + "UserLogDetails", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+      body: JSON.stringify(jsonObj),
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log("err : " + err));
+
+    **/
+
+    await fetch(Auth.serverPaths.localAdminPath + "handle-logs", {
       method: "POST",
       headers: {
         Accept: "application/json",

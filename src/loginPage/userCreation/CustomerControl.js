@@ -62,7 +62,9 @@ class CustomerControl extends React.Component {
             <BlockCustomer />
           ) : viewCust ? (
             <UnblockCustomer />
-          ) : "Nothing to show"}
+          ) : (
+            "Nothing to show"
+          )}
         </div>
       </>
     );

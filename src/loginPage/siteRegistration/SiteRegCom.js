@@ -34,9 +34,11 @@ import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import SitesRegisterd from "./SitesRegisterd";
 
 const siteStatusType = ["Active", "Inactive"];
 const outletType = ["RENT", "GENERAL"];
+
 
 function SiteRegistrationCom() {
   const [siteRegistration, setSiteRegistration] = useState({
@@ -229,7 +231,7 @@ function SiteRegistrationCom() {
               // 'Content-Type': 'application/json'
             },
             // mode:'no-cors',
-            body: JSON.stringify({ ...siteRegistration, pwd: password }),
+            body: JSON.stringify({ ...siteRegistration, pwd: password, packetType:"UPDATE_SITE" }),
           })
             .then((response) => response.json())
             .then((data) => {
@@ -746,6 +748,8 @@ function SiteRegistrationCom() {
             </div>
           </div>
         </div>
+
+        <SitesRegisterd />
         <Dialog
           open={open}
           onClose={handleClose}

@@ -200,6 +200,7 @@ function App() {
                   />
                 }
               />
+              <Route path="/*" element={<LoginMainPage />}></Route>
             </Routes>
           </BrowserRouter>
         </UserLogDetails>

@@ -56,6 +56,7 @@ import StateWiseFormSelection from "../GlobalVariable/StateWiseFormSelection";
 import {
   commonApiForGetConenction,
   commonApiForPostConenction,
+  commonApiForPostConenctionServer,
 } from "../GlobalVariable/GlobalModule";
 import { useAuth } from "../utils/Auth";
 
@@ -124,6 +125,7 @@ function TransactionDashboardCom(props) {
       terminalID: terminalId,
     });
 
+    // setUDate(udate)
     setDateOfTransaction(dateOfOpen);
     setCustomerName(custName);
     setLockNo(lockNo);
@@ -217,7 +219,7 @@ function TransactionDashboardCom(props) {
     setUpdatePaymentStatusDetailNotFound,
   ] = useState(false);
 
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   let selectedCity = (e) => {
     setCity(e.target.value);
@@ -255,7 +257,10 @@ function TransactionDashboardCom(props) {
 
   const getStatewiseTerminals = async (stateName) => {
     const terminalIds = await commonApiForGetConenction(
-      Auth.serverPaths.localAdminPath+ "FetchStates?value=" + stateName +"&type=ALL"
+      Auth.serverPaths.localAdminPath +
+        "FetchStates?value=" +
+        stateName +
+        "&type=ALL"
     );
 
     setAllTerminalIds(terminalIds.terminals);
@@ -277,7 +282,7 @@ function TransactionDashboardCom(props) {
 
     console.log(getLocksObj);
 
-    fetch(Auth.serverPaths.localAdminPath+ "FetchTransactionDetails", {
+    fetch(Auth.serverPaths.localAdminPath + "FetchTransactionDetails", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -620,7 +625,9 @@ function TransactionDashboardCom(props) {
 
   //close el (drop box icon items)
   const handleClose = () => {
-    setAnchorEl(null);
+    if (anchorEl) {
+      setAnchorEl(null);
+    }
   };
 
   const terminalIdEventHandler = (e, value) => {
@@ -995,6 +1002,51 @@ function TransactionDashboardCom(props) {
     } else {
       alert("Server Connection Lost, Try Again Later");
       setLoadPage(false);
+    }
+  };
+
+  const cancelBookingOfflinePayment = () => {
+    // alert("coming soon");
+    // setAnchorEl(null);
+
+    const payload = {
+      PacketType: "offlinepay",
+      MobileNo: manualOVerrideItems.MobileNo,
+      terminalID: manualOVerrideItems.terminalID,
+      LockerNo: lockNo,
+      udate: dateOfTransaction,
+    };
+
+    setLoadBackdrop(true);
+    setOpenCancelBookingDailogue(false);
+
+    handleServerRequests(payload);
+    handleClose();
+  };
+
+  const handleServerRequests = async (payload) => {
+    const result = await commonApiForPostConenctionServer(
+      payload,
+      Auth.accessType
+    )
+      .then((data) => data)
+      .catch((err) => {
+        setLoadBackdrop(false);
+      });
+    if (result) {
+      if (result.responseCode === "SUCCESS-200") {
+        alert("invloice genereted successfully");
+      } else if (result.responseCode === "INVMOB-201") {
+        alert("invalid mobile number");
+      } else if (result.responseCode === "INVTERM-201") {
+        alert("invalid terminalID");
+      } else {
+        alert("something went wrong!");
+      }
+      setLoadBackdrop(false);
+    } else {
+      alert("server communication error:");
+      setLoadBackdrop(false);
     }
   };
 
@@ -1408,7 +1460,6 @@ function TransactionDashboardCom(props) {
                 onChange={(e) => handleUserEnteredMobileNo(e)}
                 sx={{
                   width: 200,
-                  
                 }}
                 // fullWidth
               />
@@ -1612,7 +1663,7 @@ function TransactionDashboardCom(props) {
               )} */}
             </div>
           </div>
-          
+
           <Menu
             id="demo-customized-menu"
             MenuListProps={{
@@ -1752,6 +1803,16 @@ function TransactionDashboardCom(props) {
             >
               {" "}
               Cancel Without Transaction
+            </Button>
+            <Button
+              sx={{ mb: 1 }}
+              color="secondary"
+              variant="contained"
+              onClick={() => cancelBookingOfflinePayment()}
+              fullWidth
+            >
+              {" "}
+              Cancel Offline payment
             </Button>
           </DialogContentText>
         </DialogContent>

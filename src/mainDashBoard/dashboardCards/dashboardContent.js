@@ -33,6 +33,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CircularProgress from "@mui/material/CircularProgress";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { commonApiForGetConenction } from "../../GlobalVariable/GlobalModule";
+import { useLogDetails } from "../../utils/UserLogDetails";
 
 function DashboardContentComp() {
   const [tuckitStationLockersEnabled, setTuckitStationLockersEnabled] =
@@ -137,6 +138,7 @@ function DashboardContentComp() {
 
   const Auth = useAuth();
   const navigate = useNavigate();
+  const userLogDetails = useLogDetails();
 
   // const [serverPaths, setServePaths] = useState({
   //   serverUrl:
@@ -576,23 +578,30 @@ function DashboardContentComp() {
               previoslySelected: prevApp.currentSelected,
               changedTo: "Tuckit Mall-Lockers",
             }));
+
+            const userLogsObj = {
+              eventType: "SWITCH_APP",
+              remarks: `${appSwitchData.previoslySelected} to MALL-LOCKERS`,
+            };
+
+            userLogDetails.storeUserLogs(userLogsObj);
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
-            setAppSwitchData((prevApp) => ({
-              currentSelected: "Tuckit Mall-Lockers",
-              previoslySelected: prevApp.currentSelected,
-              changedTo: "",
-            }));
+            // setAppSwitchData((prevApp) => ({
+            //   currentSelected: "Tuckit Mall-Lockers",
+            //   previoslySelected: prevApp.currentSelected,
+            //   changedTo: "",
+            // }));
           }
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
-          setAppSwitchData((prevApp) => ({
-            currentSelected: "Tuckit Mall-Lockers",
-            previoslySelected: prevApp.currentSelected,
-            changedTo: "",
-          }));
+          // setAppSwitchData((prevApp) => ({
+          //   currentSelected: "Tuckit Mall-Lockers",
+          //   previoslySelected: prevApp.currentSelected,
+          //   changedTo: "",
+          // }));
         }
       } else if (selectionType === "TEMPLE-LOCKERS") {
         try {
@@ -609,24 +618,31 @@ function DashboardContentComp() {
               previoslySelected: prevApp.currentSelected,
               changedTo: "Tuckit Temple-Lockers",
             }));
+
+            const userLogsObj = {
+              eventType: "SWITCH_APP",
+              remarks: `${appSwitchData.previoslySelected} to TEMPLE_LOCKERS`,
+            };
+
+            userLogDetails.storeUserLogs(userLogsObj);
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
-            setAppSwitchData((prevApp) => ({
-              currentSelected: "Tuckit TEMPLE-LOCKERS",
-              previoslySelected: prevApp.currentSelected,
-              changedTo: "",
-            }));
+            // setAppSwitchData((prevApp) => ({
+            //   currentSelected: "Tuckit TEMPLE-LOCKERS",
+            //   previoslySelected: prevApp.currentSelected,
+            //   changedTo: "",
+            // }));
           }
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
           setOpenBackdrop(false);
-          setAppSwitchData((prevApp) => ({
-            currentSelected: "Tuckit TEMPLE-LOCKERS",
-            previoslySelected: prevApp.currentSelected,
-            changedTo: "",
-          }));
+          // setAppSwitchData((prevApp) => ({
+          //   currentSelected: "Tuckit TEMPLE-LOCKERS",
+          //   previoslySelected: prevApp.currentSelected,
+          //   changedTo: "",
+          // }));
         }
       } else if (selectionType === "STATION-LOCKERS") {
         try {
@@ -644,24 +660,33 @@ function DashboardContentComp() {
               previoslySelected: prevApp.currentSelected,
               changedTo: "Tuckit Station-Lockers",
             }));
+
+            const userLogsObj = {
+              eventType: "SWITCH_APP",
+              remarks: `${appSwitchData.previoslySelected} to STATION-LOCKERS`,
+            };
+
+            userLogDetails.storeUserLogs(userLogsObj);
+
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
-            setAppSwitchData((prevApp) => ({
-              currentSelected: "Tuckit Station-Lockers",
-              previoslySelected: prevApp.currentSelected,
-              changedTo: "",
-            }));
+            // setAppSwitchData((prevApp) => ({
+            //   ...prevApp,
+            //   currentSelected: "Tuckit Station-Lockers",
+            //   previoslySelected: prevApp.currentSelected,
+            //   changedTo: "",
+            // }));
           }
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
           setOpenBackdrop(false);
-          setAppSwitchData((prevApp) => ({
-            currentSelected: "Tuckit Station-Lockers",
-            previoslySelected: prevApp.currentSelected,
-            changedTo: "",
-          }));
+          // setAppSwitchData((prevApp) => ({
+          //   currentSelected: "Tuckit Station-Lockers",
+          //   previoslySelected: prevApp.currentSelected,
+          //   changedTo: "",
+          // }));
         }
       }
     }
@@ -917,6 +942,7 @@ function DashboardContentComp() {
           </div>
 
           <hr />
+
 
           <div className="all-item-container">
             {visibleState.transactionDetails ? (
