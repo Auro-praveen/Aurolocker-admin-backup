@@ -4,8 +4,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import PathUrl from "../../GlobalVariable/urlPath.json";
 
-
-
 import lockers from "../../GlobalVariable/lockers.json";
 
 import Box from "@mui/material/Box";
@@ -69,7 +67,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
 });
 
-const MalfunctionLockers = () => {
+const MalfunctionLockers = (props) => {
   const [submitBtnHeight, setSubmitBtnHeight] = useState(400);
 
   const Auth = useAuth();
@@ -106,29 +104,54 @@ const MalfunctionLockers = () => {
 
   const [terminalIds, setTdTerminalIds] = useState([]);
 
+  // useEffect(() => {
+  //   getTerminalIdsOfTransactionDetails();
+  // }, []);
+
   useEffect(() => {
     getTerminalIdsOfTransactionDetails();
   }, []);
 
+  // useEffect(() => {
+  //   getTerminalIdsOfTransactionDetails();
+  // }, [props.appSwitchedTo]);
+
   const [serverPaths, setServePaths] = useState({
-    serverUrl: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeServerUrl : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationServerUrl : PathUrl.serverUrl,
-    localAdminPath: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeLocalServerPath : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationLocalServerPath : PathUrl.localServerPath
-  })
+    serverUrl:
+      Auth.accessAppType === "TEMPLE-LOCKERS"
+        ? PathUrl.templeServerUrl
+        : Auth.accessAppType === "STATION-LOCKERS"
+        ? PathUrl.stationServerUrl
+        : PathUrl.serverUrl,
+    localAdminPath:
+      Auth.accessAppType === "TEMPLE-LOCKERS"
+        ? PathUrl.templeLocalServerPath
+        : Auth.accessAppType === "STATION-LOCKERS"
+        ? PathUrl.stationLocalServerPath
+        : PathUrl.localServerPath,
+  });
 
   useEffect(() => {
     setServePaths({
-      serverUrl: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeServerUrl : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationServerUrl : PathUrl.serverUrl,
-      localAdminPath: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeLocalServerPath : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationLocalServerPath : PathUrl.localServerPath
-    })
-  }, [Auth.accessAppType])
-
+      serverUrl:
+        Auth.accessAppType === "TEMPLE-LOCKERS"
+          ? PathUrl.templeServerUrl
+          : Auth.accessAppType === "STATION-LOCKERS"
+          ? PathUrl.stationServerUrl
+          : PathUrl.serverUrl,
+      localAdminPath:
+        Auth.accessAppType === "TEMPLE-LOCKERS"
+          ? PathUrl.templeLocalServerPath
+          : Auth.accessAppType === "STATION-LOCKERS"
+          ? PathUrl.stationLocalServerPath
+          : PathUrl.localServerPath,
+    });
+  }, [Auth.accessAppType]);
 
   const handleClose = () => {
-
     setOpenAddMalfun(false);
 
     setOpenRemMalfun(false);
-
   };
 
   // to get all ther terminalids from the present transaction details
@@ -137,7 +160,7 @@ const MalfunctionLockers = () => {
     setLoading(true);
     const getLocksObj = {
       PacketType: "gettermid",
-      type: "ALL"
+      type: "ALL",
     };
     // fetch(urlPath.localServerPath + "FetchTransactionDetails", {
     fetch(serverPaths.localAdminPath + "FetchStates", {

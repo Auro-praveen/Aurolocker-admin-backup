@@ -667,7 +667,6 @@ function DashboardContentComp() {
             };
 
             userLogDetails.storeUserLogs(userLogsObj);
-
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
@@ -890,74 +889,78 @@ function DashboardContentComp() {
 
             /> */}
 
-            <ButtonGroup
-              variant="contained"
-              aria-label="Basic button group"
-              style={{
-                textAlign: "center",
-                alignItems: "center",
-                margin: "auto",
-              }}
-            >
-              <Button
-                className={
-                  terminalTypeSelected === "MALL-LOCKERS"
-                    ? "app-selected-btn"
-                    : "app-non-selected-btn"
-                }
-                disabled={
-                  terminalTypeSelected === "MALL-LOCKERS" ? true : false
-                }
-                onClick={() => handleSwitchBetweenLockers("MALL-LOCKERS")}
+            {visibleState.transactionDetails && (
+              <ButtonGroup
+                variant="contained"
+                aria-label="Basic button group"
+                style={{
+                  textAlign: "center",
+                  alignItems: "center",
+                  margin: "auto",
+                }}
               >
-                MALL-TERMINALS
-              </Button>
-              <Button
-                className={
-                  terminalTypeSelected === "STATION-LOCKERS"
-                    ? "app-selected-btn"
-                    : "app-non-selected-btn"
-                }
-                disabled={
-                  terminalTypeSelected === "STATION-LOCKERS" ? true : false
-                }
-                onClick={() => handleSwitchBetweenLockers("STATION-LOCKERS")}
-              >
-                STATION-TERMINALS
-              </Button>
-              <Button
-                className={
-                  terminalTypeSelected === "TEMPLE-LOCKERS"
-                    ? "app-selected-btn"
-                    : "app-non-selected-btn"
-                }
-                disabled={
-                  terminalTypeSelected === "TEMPLE-LOCKERS" ? true : false
-                }
-                onClick={() => handleSwitchBetweenLockers("TEMPLE-LOCKERS")}
-              >
-                TEMPLE-TERMINALS
-              </Button>
-            </ButtonGroup>
+                <Button
+                  className={
+                    terminalTypeSelected === "MALL-LOCKERS"
+                      ? "app-selected-btn"
+                      : "app-non-selected-btn"
+                  }
+                  disabled={
+                    terminalTypeSelected === "MALL-LOCKERS" ? true : false
+                  }
+                  onClick={() => handleSwitchBetweenLockers("MALL-LOCKERS")}
+                >
+                  MALL-TERMINALS
+                </Button>
+                <Button
+                  className={
+                    terminalTypeSelected === "STATION-LOCKERS"
+                      ? "app-selected-btn"
+                      : "app-non-selected-btn"
+                  }
+                  disabled={
+                    terminalTypeSelected === "STATION-LOCKERS" ? true : false
+                  }
+                  onClick={() => handleSwitchBetweenLockers("STATION-LOCKERS")}
+                >
+                  STATION-TERMINALS
+                </Button>
+                <Button
+                  className={
+                    terminalTypeSelected === "TEMPLE-LOCKERS"
+                      ? "app-selected-btn"
+                      : "app-non-selected-btn"
+                  }
+                  disabled={
+                    terminalTypeSelected === "TEMPLE-LOCKERS" ? true : false
+                  }
+                  onClick={() => handleSwitchBetweenLockers("TEMPLE-LOCKERS")}
+                >
+                  TEMPLE-TERMINALS
+                </Button>
+              </ButtonGroup>
+            )}
           </div>
 
           <hr />
 
-
           <div className="all-item-container">
             {visibleState.transactionDetails ? (
               <TransactionDashboardCom
+                appSwitchedTo={Auth.accessAppType}
                 transitTerminalID={transitTransactionArr}
                 onRefundClick={refundInitiateFromDiffCompHandler.bind(this)}
               />
             ) : visibleState.transactionHistory ? (
               <TransactionOperations
+                appSwitchedTo={Auth.accessAppType}
                 onCloseHandler={handleVisibleStates.bind(this)}
                 onRefundClick={refundInitiateFromDiffCompHandler.bind(this)}
                 status={dashboardContentClicked}
               />
             ) : visibleState.lockerOperations ? (
               <LockerOperations
+                appSwitchedTo={Auth.accessAppType}
                 onCloseHandler={handleVisibleStates.bind(this)}
                 status={dashboardContentClicked}
                 releasLocker={
@@ -966,15 +969,16 @@ function DashboardContentComp() {
               />
             ) : visibleState.refund ? (
               <RefundHandler
+                appSwitchedTo={Auth.accessAppType}
                 onCloseHandler={handleVisibleStates.bind(this)}
                 status={dashboardContentClicked}
                 isRefundInitFromDiffComp={isRefundInitFromDiffComp}
                 refundInitObj={isRefundInitFromDiffComp ? refundInitObject : {}}
               />
             ) : visibleState.lockerStatus ? (
-              <LockerStatus />
+              <LockerStatus appSwitchedTo={Auth.accessAppType} />
             ) : visibleState.deviceStatus ? (
-              <TerminalStatus />
+              <TerminalStatus appSwitchedTo={Auth.accessAppType} />
             ) : null}
           </div>
         </div>

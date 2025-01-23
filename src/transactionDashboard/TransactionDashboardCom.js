@@ -253,6 +253,10 @@ function TransactionDashboardCom(props) {
   // getTerminalIdsOfTransactionDetails();
   // }, []);
 
+  // added here for switch locker app
+
+  // useEffect(() => {}, [props.appSwitchedTo]);
+
   // praveen changed here for statewise operations
 
   const getStatewiseTerminals = async (stateName) => {
@@ -1383,6 +1387,7 @@ function TransactionDashboardCom(props) {
             </div>
 
             <StateWiseFormSelection
+              appSwitchedTo={props.appSwitchedTo}
               onStateChangeCallback={(stateName) => handleStateName(stateName)}
             />
 

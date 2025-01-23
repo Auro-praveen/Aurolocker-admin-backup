@@ -53,7 +53,8 @@ export const UserLogDetails = ({ children }) => {
 
     **/
 
-    await fetch(Auth.serverPaths.localAdminPath + "handle-logs", {
+    // await fetch(Auth.serverPaths.localAdminPath + "handle-logs", {
+    await fetch(PathUrl.localServerPath + "handle-logs", {
       method: "POST",
       headers: {
         Accept: "application/json",

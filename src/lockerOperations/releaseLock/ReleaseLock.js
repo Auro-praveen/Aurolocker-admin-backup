@@ -13,8 +13,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import PathUrl from "../../GlobalVariable/urlPath.json";
 
-
-
 import lockers from "../../GlobalVariable/lockers.json";
 
 import Box from "@mui/material/Box";
@@ -63,7 +61,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
 });
 
-const ReleaseLock = () => {
+const ReleaseLock = (props) => {
   const locksMapping = {
     allLocks: lockers.ORN,
     seatNoA: ["S1", "S5", "S9", "S12", "L15", "L19"],
@@ -90,7 +88,7 @@ const ReleaseLock = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [selectedTerminalID, setSelectedTerminalID] = useState(null)
+  const [selectedTerminalID, setSelectedTerminalID] = useState(null);
 
   const [isTerminalIdPresent, seIsTerminalIdPresent] = useState(true);
   const [openErrorAlert, setOpenErrorAlert] = useState(false);
@@ -116,18 +114,41 @@ const ReleaseLock = () => {
     getTerminalIdsOfTransactionDetails();
   }, []);
 
+  // useEffect(() => {
+  //   getTerminalIdsOfTransactionDetails();
+  // }, [props.appSwitchedTo]);
 
   const [serverPaths, setServePaths] = useState({
-    serverUrl: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeServerUrl : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationServerUrl : PathUrl.serverUrl,
-    localAdminPath: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeLocalServerPath : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationLocalServerPath : PathUrl.localServerPath
-  })
+    serverUrl:
+      Auth.accessAppType === "TEMPLE-LOCKERS"
+        ? PathUrl.templeServerUrl
+        : Auth.accessAppType === "STATION-LOCKERS"
+        ? PathUrl.stationServerUrl
+        : PathUrl.serverUrl,
+    localAdminPath:
+      Auth.accessAppType === "TEMPLE-LOCKERS"
+        ? PathUrl.templeLocalServerPath
+        : Auth.accessAppType === "STATION-LOCKERS"
+        ? PathUrl.stationLocalServerPath
+        : PathUrl.localServerPath,
+  });
 
   useEffect(() => {
     setServePaths({
-      serverUrl: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeServerUrl : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationServerUrl : PathUrl.serverUrl,
-      localAdminPath: Auth.accessAppType === "TEMPLE-LOCKERS" ? PathUrl.templeLocalServerPath : Auth.accessAppType === "STATION-LOCKERS" ? PathUrl.stationLocalServerPath : PathUrl.localServerPath
-    })
-  }, [Auth.accessAppType])
+      serverUrl:
+        Auth.accessAppType === "TEMPLE-LOCKERS"
+          ? PathUrl.templeServerUrl
+          : Auth.accessAppType === "STATION-LOCKERS"
+          ? PathUrl.stationServerUrl
+          : PathUrl.serverUrl,
+      localAdminPath:
+        Auth.accessAppType === "TEMPLE-LOCKERS"
+          ? PathUrl.templeLocalServerPath
+          : Auth.accessAppType === "STATION-LOCKERS"
+          ? PathUrl.stationLocalServerPath
+          : PathUrl.localServerPath,
+    });
+  }, [Auth.accessAppType]);
 
   // for selecting the lockers
   const userSelectedLockFun = (lock) => {
@@ -180,7 +201,7 @@ const ReleaseLock = () => {
     setLoading(true);
     const getLocksObj = {
       PacketType: "gettermid",
-      type: "ALL"
+      type: "ALL",
     };
     fetch(serverPaths.localAdminPath + "FetchStates", {
       method: "POST",
@@ -193,13 +214,12 @@ const ReleaseLock = () => {
       .then((data) => {
         console.log(data);
         if (data.responseCode === "avltd-200") {
-
           setTdTerminalIds(data.terminalID);
 
           const termIdArr = data.terminalID[0].split(",");
           const termId = termIdArr[1].replace(/\s+g/, "").trim();
 
-          setSelectedTerminalID(data.terminalID[0])
+          setSelectedTerminalID(data.terminalID[0]);
 
           setReleaseLockObject({
             ...releaseLockObject,
@@ -304,7 +324,6 @@ const ReleaseLock = () => {
 
   // to get the lockers from the selected terminal id
   const terminalIDHandler = (e, value) => {
-
     // setReleaseLockObject({
     //   ...releaseLockObject,
     //   terminalID: e.target.value,
@@ -314,7 +333,6 @@ const ReleaseLock = () => {
     // alert(e.target.value);
 
     if (value !== null) {
-
       const termIdArr = value.split(",");
       const termId = termIdArr[1].replace(/\s+g/, "").trim();
 

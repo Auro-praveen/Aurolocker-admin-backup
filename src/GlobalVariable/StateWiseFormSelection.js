@@ -11,16 +11,27 @@ const StateWiseFormSelection = (props) => {
 
   const [selectedState, setSelectedState] = useState();
 
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   useEffect(() => {
     getStatesOfTerminals();
+    console.log("inside");
+    console.log("inside");
+    console.log("inside");
+    console.log("inside");
   }, []);
 
-  
+  useEffect(() => {
+    getStatesOfTerminals();
+
+    console.log(Auth.serverPaths.localAdminPath);
+    
+    console.log("inside auth access type here here");
+    
+    console.log(Auth.accessAppType);
+  }, [Auth.accessAppType]);
 
   const getStatesOfTerminals = async () => {
-
     const respData = await commonApiForGetConenction(
       Auth.serverPaths.localAdminPath + "FetchStates?value=states"
     );
@@ -28,18 +39,16 @@ const StateWiseFormSelection = (props) => {
     console.log(respData);
     const states = respData.state;
 
-    setAllStates(states)
-    
+    setAllStates(states);
 
     if (states.length > 0) {
-        props.onStateChangeCallback(states[0])
+      props.onStateChangeCallback(states[0]);
     }
-
   };
 
   const terminalStateWiseHandler = (e) => {
-    setSelectedState(e.target.value)
-    props.onStateChangeCallback(e.target.value)
+    setSelectedState(e.target.value);
+    props.onStateChangeCallback(e.target.value);
   };
 
   return (

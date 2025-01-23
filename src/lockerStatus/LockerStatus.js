@@ -18,7 +18,7 @@ import StateWiseFormSelection from "../GlobalVariable/StateWiseFormSelection";
 import { commonApiForGetConenction } from "../GlobalVariable/GlobalModule";
 import { useAuth } from "../utils/Auth";
 
-function LockerStatus() {
+function LockerStatus(props) {
   const [lockerStatus, setLockerStatus] = useState({
     slno: "",
     lockerNumber: "",
@@ -32,7 +32,7 @@ function LockerStatus() {
     rtime: "",
     status: "",
     userId: "",
-    boxstatus:""
+    boxstatus: "",
   });
 
   const [stateName, setStateName] = useState("");
@@ -80,7 +80,7 @@ function LockerStatus() {
             rtime: data.rtime,
             status: data.status,
             userId: data.userId,
-            boxstatus:data.boxtype
+            boxstatus: data.boxtype,
           });
         } else {
           setLockerStatus({});
@@ -171,6 +171,7 @@ function LockerStatus() {
       </div>
 
       <StateWiseFormSelection
+        appSwitchedTo={props.appSwitchedTo}
         onStateChangeCallback={(stateName) => handleStateName(stateName)}
       />
 

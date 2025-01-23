@@ -1,6 +1,6 @@
 {
-  "name": "aurolocker",
-  "version": "4.22.28",
+  "name": "tuckit-locker",
+  "version": "4.24.28",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
