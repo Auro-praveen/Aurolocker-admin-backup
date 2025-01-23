@@ -55,22 +55,39 @@ export const AuthProvider = ({ children }) => {
         : PathUrl.localServerPath,
   });
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   setServePaths({
+  //     serverUrl:
+  //       accessAppType === "TEMPLE-LOCKERS"
+  //         ? PathUrl.templeServerUrl
+  //         : accessAppType === "STATION-LOCKERS"
+  //         ? PathUrl.stationServerUrl
+  //         : PathUrl.serverUrl,
+  //     localAdminPath:
+  //       accessAppType === "TEMPLE-LOCKERS"
+  //         ? PathUrl.templeLocalServerPath
+  //         : accessAppType === "STATION-LOCKERS"
+  //         ? PathUrl.stationLocalServerPath
+  //         : PathUrl.localServerPath,
+  //   });
+  // }, [accessAppType]);
+
+  const handleAccessType = (type) => {
     setServePaths({
       serverUrl:
-        accessAppType === "TEMPLE-LOCKERS"
+        type === "TEMPLE-LOCKERS"
           ? PathUrl.templeServerUrl
-          : accessAppType === "STATION-LOCKERS"
+          : type === "STATION-LOCKERS"
           ? PathUrl.stationServerUrl
           : PathUrl.serverUrl,
       localAdminPath:
-        accessAppType === "TEMPLE-LOCKERS"
+        type === "TEMPLE-LOCKERS"
           ? PathUrl.templeLocalServerPath
-          : accessAppType === "STATION-LOCKERS"
+          : type === "STATION-LOCKERS"
           ? PathUrl.stationLocalServerPath
           : PathUrl.localServerPath,
     });
-  }, [accessAppType]);
+  };
 
   const loginHandler = (user, allPerm, userPerm) => {
     setUser(user);
@@ -142,6 +159,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleAccessAppType = (type) => {
     setAccessAppType(type);
+    handleAccessType(type);
   };
 
   const handleAppPermissions = (appPermission) => {
@@ -164,7 +182,7 @@ export const AuthProvider = ({ children }) => {
         accessAppType,
         serverPaths,
         handleAppPermissions,
-        appPermissions
+        appPermissions,
       }}
     >
       {" "}

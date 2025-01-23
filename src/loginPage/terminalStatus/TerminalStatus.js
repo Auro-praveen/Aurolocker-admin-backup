@@ -10,7 +10,7 @@ import StateWiseFormSelection from "../../GlobalVariable/StateWiseFormSelection"
 import { Button } from "@mui/material";
 import { useAuth } from "../../utils/Auth";
 
-function TerminalStatus() {
+function TerminalStatus(props) {
   const [deviceStatus, setDeviceStatus] = useState({
     terminalID: [],
     deviceDate: [],
@@ -25,9 +25,9 @@ function TerminalStatus() {
 
   const [stateName, setStateName] = useState("");
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   // useEffect(() => {
   //   fetchDeviceHealth();
@@ -101,23 +101,22 @@ function TerminalStatus() {
   };
 
   const handleStateName = (stateName) => {
-
-    setIsLoading(false)
+    setIsLoading(false);
     if (stateName) {
       setStateName(stateName);
 
       fetchDeviceHealth(stateName, "ACTIVE");
     }
-
   };
 
   return (
     <div>
       <StateWiseFormSelection
+        appSwitchedTo={props.appSwitchedTo}
         onStateChangeCallback={(stateName) => handleStateName(stateName)}
       />
 
-      <div style={{ marginTop: 2, textAlign: 'center' }}>
+      <div style={{ marginTop: 2, textAlign: "center" }}>
         <Button
           color="error"
           variant="contained"
@@ -151,7 +150,7 @@ function TerminalStatus() {
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}
-        // onClick={handleClose}
+          // onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

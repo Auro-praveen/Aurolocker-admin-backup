@@ -5,6 +5,7 @@ import {
   commonApiForPostConenctionServer,
 } from "../../../GlobalVariable/GlobalModule";
 import { classUseAuth } from "../../../utils/Auth";
+import { useLogDetails } from "../../../utils/UserLogDetails";
 
 class BlockCustomer extends React.Component {
   constructor(props) {

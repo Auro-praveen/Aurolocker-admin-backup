@@ -33,6 +33,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CircularProgress from "@mui/material/CircularProgress";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { commonApiForGetConenction } from "../../GlobalVariable/GlobalModule";
+import { useLogDetails } from "../../utils/UserLogDetails";
 
 function DashboardContentComp() {
   const [tuckitStationLockersEnabled, setTuckitStationLockersEnabled] =
@@ -137,6 +138,7 @@ function DashboardContentComp() {
 
   const Auth = useAuth();
   const navigate = useNavigate();
+  const userLogDetails = useLogDetails();
 
   // const [serverPaths, setServePaths] = useState({
   //   serverUrl:
@@ -576,23 +578,30 @@ function DashboardContentComp() {
               previoslySelected: prevApp.currentSelected,
               changedTo: "Tuckit Mall-Lockers",
             }));
+
+            const userLogsObj = {
+              eventType: "SWITCH_APP",
+              remarks: `${appSwitchData.previoslySelected} to MALL-LOCKERS`,
+            };
+
+            userLogDetails.storeUserLogs(userLogsObj);
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
-            setAppSwitchData((prevApp) => ({
-              currentSelected: "Tuckit Mall-Lockers",
-              previoslySelected: prevApp.currentSelected,
-              changedTo: "",
-            }));
+            // setAppSwitchData((prevApp) => ({
+            //   currentSelected: "Tuckit Mall-Lockers",
+            //   previoslySelected: prevApp.currentSelected,
+            //   changedTo: "",
+            // }));
           }
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
-          setAppSwitchData((prevApp) => ({
-            currentSelected: "Tuckit Mall-Lockers",
-            previoslySelected: prevApp.currentSelected,
-            changedTo: "",
-          }));
+          // setAppSwitchData((prevApp) => ({
+          //   currentSelected: "Tuckit Mall-Lockers",
+          //   previoslySelected: prevApp.currentSelected,
+          //   changedTo: "",
+          // }));
         }
       } else if (selectionType === "TEMPLE-LOCKERS") {
         try {
@@ -609,24 +618,31 @@ function DashboardContentComp() {
               previoslySelected: prevApp.currentSelected,
               changedTo: "Tuckit Temple-Lockers",
             }));
+
+            const userLogsObj = {
+              eventType: "SWITCH_APP",
+              remarks: `${appSwitchData.previoslySelected} to TEMPLE_LOCKERS`,
+            };
+
+            userLogDetails.storeUserLogs(userLogsObj);
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
-            setAppSwitchData((prevApp) => ({
-              currentSelected: "Tuckit TEMPLE-LOCKERS",
-              previoslySelected: prevApp.currentSelected,
-              changedTo: "",
-            }));
+            // setAppSwitchData((prevApp) => ({
+            //   currentSelected: "Tuckit TEMPLE-LOCKERS",
+            //   previoslySelected: prevApp.currentSelected,
+            //   changedTo: "",
+            // }));
           }
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
           setOpenBackdrop(false);
-          setAppSwitchData((prevApp) => ({
-            currentSelected: "Tuckit TEMPLE-LOCKERS",
-            previoslySelected: prevApp.currentSelected,
-            changedTo: "",
-          }));
+          // setAppSwitchData((prevApp) => ({
+          //   currentSelected: "Tuckit TEMPLE-LOCKERS",
+          //   previoslySelected: prevApp.currentSelected,
+          //   changedTo: "",
+          // }));
         }
       } else if (selectionType === "STATION-LOCKERS") {
         try {
@@ -644,24 +660,32 @@ function DashboardContentComp() {
               previoslySelected: prevApp.currentSelected,
               changedTo: "Tuckit Station-Lockers",
             }));
+
+            const userLogsObj = {
+              eventType: "SWITCH_APP",
+              remarks: `${appSwitchData.previoslySelected} to STATION-LOCKERS`,
+            };
+
+            userLogDetails.storeUserLogs(userLogsObj);
           } else {
             setAppInactive(true);
             setOpenBackdrop(false);
-            setAppSwitchData((prevApp) => ({
-              currentSelected: "Tuckit Station-Lockers",
-              previoslySelected: prevApp.currentSelected,
-              changedTo: "",
-            }));
+            // setAppSwitchData((prevApp) => ({
+            //   ...prevApp,
+            //   currentSelected: "Tuckit Station-Lockers",
+            //   previoslySelected: prevApp.currentSelected,
+            //   changedTo: "",
+            // }));
           }
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
           setOpenBackdrop(false);
-          setAppSwitchData((prevApp) => ({
-            currentSelected: "Tuckit Station-Lockers",
-            previoslySelected: prevApp.currentSelected,
-            changedTo: "",
-          }));
+          // setAppSwitchData((prevApp) => ({
+          //   currentSelected: "Tuckit Station-Lockers",
+          //   previoslySelected: prevApp.currentSelected,
+          //   changedTo: "",
+          // }));
         }
       }
     }
@@ -865,55 +889,57 @@ function DashboardContentComp() {
 
             /> */}
 
-            <ButtonGroup
-              variant="contained"
-              aria-label="Basic button group"
-              style={{
-                textAlign: "center",
-                alignItems: "center",
-                margin: "auto",
-              }}
-            >
-              <Button
-                className={
-                  terminalTypeSelected === "MALL-LOCKERS"
-                    ? "app-selected-btn"
-                    : "app-non-selected-btn"
-                }
-                disabled={
-                  terminalTypeSelected === "MALL-LOCKERS" ? true : false
-                }
-                onClick={() => handleSwitchBetweenLockers("MALL-LOCKERS")}
+            {visibleState.transactionDetails && (
+              <ButtonGroup
+                variant="contained"
+                aria-label="Basic button group"
+                style={{
+                  textAlign: "center",
+                  alignItems: "center",
+                  margin: "auto",
+                }}
               >
-                MALL-TERMINALS
-              </Button>
-              <Button
-                className={
-                  terminalTypeSelected === "STATION-LOCKERS"
-                    ? "app-selected-btn"
-                    : "app-non-selected-btn"
-                }
-                disabled={
-                  terminalTypeSelected === "STATION-LOCKERS" ? true : false
-                }
-                onClick={() => handleSwitchBetweenLockers("STATION-LOCKERS")}
-              >
-                STATION-TERMINALS
-              </Button>
-              <Button
-                className={
-                  terminalTypeSelected === "TEMPLE-LOCKERS"
-                    ? "app-selected-btn"
-                    : "app-non-selected-btn"
-                }
-                disabled={
-                  terminalTypeSelected === "TEMPLE-LOCKERS" ? true : false
-                }
-                onClick={() => handleSwitchBetweenLockers("TEMPLE-LOCKERS")}
-              >
-                TEMPLE-TERMINALS
-              </Button>
-            </ButtonGroup>
+                <Button
+                  className={
+                    terminalTypeSelected === "MALL-LOCKERS"
+                      ? "app-selected-btn"
+                      : "app-non-selected-btn"
+                  }
+                  disabled={
+                    terminalTypeSelected === "MALL-LOCKERS" ? true : false
+                  }
+                  onClick={() => handleSwitchBetweenLockers("MALL-LOCKERS")}
+                >
+                  MALL-TERMINALS
+                </Button>
+                <Button
+                  className={
+                    terminalTypeSelected === "STATION-LOCKERS"
+                      ? "app-selected-btn"
+                      : "app-non-selected-btn"
+                  }
+                  disabled={
+                    terminalTypeSelected === "STATION-LOCKERS" ? true : false
+                  }
+                  onClick={() => handleSwitchBetweenLockers("STATION-LOCKERS")}
+                >
+                  STATION-TERMINALS
+                </Button>
+                <Button
+                  className={
+                    terminalTypeSelected === "TEMPLE-LOCKERS"
+                      ? "app-selected-btn"
+                      : "app-non-selected-btn"
+                  }
+                  disabled={
+                    terminalTypeSelected === "TEMPLE-LOCKERS" ? true : false
+                  }
+                  onClick={() => handleSwitchBetweenLockers("TEMPLE-LOCKERS")}
+                >
+                  TEMPLE-TERMINALS
+                </Button>
+              </ButtonGroup>
+            )}
           </div>
 
           <hr />
@@ -921,17 +947,20 @@ function DashboardContentComp() {
           <div className="all-item-container">
             {visibleState.transactionDetails ? (
               <TransactionDashboardCom
+                appSwitchedTo={Auth.accessAppType}
                 transitTerminalID={transitTransactionArr}
                 onRefundClick={refundInitiateFromDiffCompHandler.bind(this)}
               />
             ) : visibleState.transactionHistory ? (
               <TransactionOperations
+                appSwitchedTo={Auth.accessAppType}
                 onCloseHandler={handleVisibleStates.bind(this)}
                 onRefundClick={refundInitiateFromDiffCompHandler.bind(this)}
                 status={dashboardContentClicked}
               />
             ) : visibleState.lockerOperations ? (
               <LockerOperations
+                appSwitchedTo={Auth.accessAppType}
                 onCloseHandler={handleVisibleStates.bind(this)}
                 status={dashboardContentClicked}
                 releasLocker={
@@ -940,15 +969,16 @@ function DashboardContentComp() {
               />
             ) : visibleState.refund ? (
               <RefundHandler
+                appSwitchedTo={Auth.accessAppType}
                 onCloseHandler={handleVisibleStates.bind(this)}
                 status={dashboardContentClicked}
                 isRefundInitFromDiffComp={isRefundInitFromDiffComp}
                 refundInitObj={isRefundInitFromDiffComp ? refundInitObject : {}}
               />
             ) : visibleState.lockerStatus ? (
-              <LockerStatus />
+              <LockerStatus appSwitchedTo={Auth.accessAppType} />
             ) : visibleState.deviceStatus ? (
-              <TerminalStatus />
+              <TerminalStatus appSwitchedTo={Auth.accessAppType} />
             ) : null}
           </div>
         </div>

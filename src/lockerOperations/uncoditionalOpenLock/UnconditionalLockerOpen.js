@@ -75,8 +75,7 @@ const UnconditionalLockerOpen = (props) => {
     LockerNo: [],
   });
 
-
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -98,9 +97,22 @@ const UnconditionalLockerOpen = (props) => {
   const [terminalIds, setTdTerminalIds] = useState([]);
 
   const userLogs = useLogDetails();
+
+  // before
+
+  // useEffect(() => {
+  //   getTerminalIdsOfTransactionDetails();
+  // }, []);
+
+  // changed after
+
   useEffect(() => {
     getTerminalIdsOfTransactionDetails();
   }, []);
+
+  // useEffect(() => {
+  //   getTerminalIdsOfTransactionDetails();
+  // }, [props.appSwitchedTo]);
 
   const handleClose = () => {
     setOpen(false);
@@ -190,7 +202,7 @@ const UnconditionalLockerOpen = (props) => {
         delete serverObj.userId;
         console.log(serverObj);
 
-        fetch(Auth.serverPaths.serverUrl , {
+        fetch(Auth.serverPaths.serverUrl, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -222,9 +234,9 @@ const UnconditionalLockerOpen = (props) => {
     setLoading(true);
     const getLocksObj = {
       PacketType: "gettermid",
-      type: "ALL"
+      type: "ALL",
     };
-    fetch(Auth.serverPaths.localAdminPath+ "FetchStates", {
+    fetch(Auth.serverPaths.localAdminPath + "FetchStates", {
       method: "POST",
       headers: {
         Accept: "application/json",

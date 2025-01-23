@@ -10,6 +10,14 @@
 
 
     "serverUrl":"http://app.tuckit.in:8041/AuroLocker/AuroClientRequest", 
-    "localServerPath":"http://43.204.14.189:8080/AuroAutoLocker/"
+    "localServerPath":"http://43.204.14.189:8080/AuroAutoLocker/",
+
+
+    "serverUrl":"http://192.168.0.186:8080/AuroLocker/AuroClientRequest", 
+    "localServerPath":"http://192.168.0.186:8080/AuroAutoLocker/",
+    "stationServerUrl":"http://192.168.0.141:8080/AuroLocker/AuroClientRequest", 
+    "stationLocalServerPath":"http://192.168.0.141:8080/AuroStationLockers/",
+    "templeServerUrl":"http://192.168.0.182:8080/AuroTempleLBEngine/AuroClientRequest", 
+    "templeLocalServerPath":"http://192.168.0.182:8080/AuroTempleLockers/"
 
 }

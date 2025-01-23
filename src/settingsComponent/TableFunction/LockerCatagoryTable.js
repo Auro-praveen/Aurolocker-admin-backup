@@ -494,7 +494,8 @@ const LockerCatagoryTable = (props) => {
     } else if (
       tableType === "lossedCustomers" ||
       tableType === "partiallocks" ||
-      tableType === "refundhistory"
+      tableType === "refundhistory" ||
+      tableType === "SITE_TABLE"
       // || tableType === "users"
     ) {
       return (
@@ -736,6 +737,7 @@ const LockerCatagoryTable = (props) => {
                 tableType === "partiallocks" ||
                 // tableType === "users" ||
                 tableType === "mallAuthHist" ||
+                tableType === "SITE_TABLE"  ||
                 tableType === "refundhistory" ? (
                 Object.keys(jsonData).map((tableHeader) => {
                   return (

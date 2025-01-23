@@ -8,6 +8,7 @@ import PathUrl from "../GlobalVariable/urlPath.json";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 
 import {
   Alert,
@@ -43,7 +44,10 @@ import SaveIcon from "@mui/icons-material/Save";
 import { FormHelperText } from "@mui/material";
 import { useLogDetails } from "../utils/UserLogDetails";
 import StateWiseFormSelection from "../GlobalVariable/StateWiseFormSelection";
-import { commonApiForGetConenction } from "../GlobalVariable/GlobalModule";
+import {
+  commonApiForGetConenction,
+  commonApiForPostConenctionServer,
+} from "../GlobalVariable/GlobalModule";
 import { useAuth } from "../utils/Auth";
 
 function TDHistory(props) {
@@ -118,6 +122,7 @@ function TDHistory(props) {
     LockerNo: "",
     ReqType: "Retrieve",
     TransType: "Internet",
+    date: "",
   });
 
   const [allTerminalIds, setAllTerminalIds] = useState([]);
@@ -324,7 +329,6 @@ function TDHistory(props) {
 
     const termId = terminalValue[1].replace(/\s+/g, "");
 
-
     console.log(selecteDate);
     const isSelectedDateOk = verifyDate(selecteDate);
 
@@ -343,7 +347,6 @@ function TDHistory(props) {
   };
 
   const terminalIdEventHandler = (e, value) => {
-
     // setSelectedTerminalId(e.target.value);
     // fetchTransactionDetailHistory(
     //   "gettdhistorybyddate",
@@ -356,7 +359,6 @@ function TDHistory(props) {
     const termId = terminalValue[1].replace(/\s+/g, "");
 
     if (value !== null) {
-
       setSelectedTerminalId(value);
       fetchTransactionDetailHistory(
         "gettdhistorybyddate",
@@ -366,8 +368,6 @@ function TDHistory(props) {
       );
 
       setEnteredPhonenumber("");
-
-
     }
   };
 
@@ -388,7 +388,9 @@ function TDHistory(props) {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    if (anchorEl) {
+      setAnchorEl(null);
+    }
   };
 
   const submitManualOverride = (e) => {
@@ -788,7 +790,10 @@ function TDHistory(props) {
 
   const getStatewiseTerminals = async (stateName) => {
     const terminalIds = await commonApiForGetConenction(
-      Auth.serverPaths.localAdminPath + "FetchStates?value=" + stateName+"&type=ALL"
+      Auth.serverPaths.localAdminPath +
+        "FetchStates?value=" +
+        stateName +
+        "&type=ALL"
     );
 
     setAllTerminalIds(terminalIds.terminals);
@@ -797,6 +802,12 @@ function TDHistory(props) {
 
     const termId = terminalValue[1].replace(/\s+/g, "");
 
+    console.log("--------------------");
+    console.log();
+    console.log(terminalIds.terminals[0]);
+
+    setSelectedTerminalId(terminalIds.terminals[0]);
+
     fetchTransactionDetailHistory(
       "gettdhistorybyddate",
       // terminalIds.terminals[0],
@@ -804,6 +815,42 @@ function TDHistory(props) {
       currentDate(),
       "nonumber"
     );
+  };
+
+  const generateInvoiceHandler = () => {
+    // alert("coming soon");
+    // setAnchorEl(null);
+
+    const payload = {
+      PacketType: "dwnldinv",
+      MobileNo: tdHistoryManualOverride.MobileNo,
+      terminalID: tdHistoryManualOverride.terminalID,
+      LockerNo: tdHistoryManualOverride.LockerNo,
+      udate: dateAndTimeOfToActiveTd.dateOfOpen,
+    };
+
+    handleServerRequests(payload);
+    handleClose();
+  };
+
+  const handleServerRequests = async (payload) => {
+    const result = await commonApiForPostConenctionServer(
+      payload,
+      Auth.accessType
+    );
+    if (result) {
+      if (result.responseCode === "SUCCESS-200") {
+        alert("invloice genereted successfully");
+      } else if (result.responseCode === "INVMOB-201") {
+        alert("invalid mobile number");
+      } else if (result.responseCode === "INVTERM-201") {
+        alert("invalid terminalID");
+      } else {
+        alert("something went wrong!");
+      }
+    } else {
+      alert("server communication error:");
+    }
   };
 
   return (
@@ -1155,7 +1202,7 @@ function TDHistory(props) {
 
               <Autocomplete
                 // disablePortal
-                
+
                 id="combo-box-demo"
                 options={allTerminalIds}
                 value={sellectedTerminalId}
@@ -1166,8 +1213,6 @@ function TDHistory(props) {
                 onChange={(e, value) => terminalIdEventHandler(e, value)}
                 focused
               />
-
-
             </FormControl>
           </Box>
 
@@ -1276,6 +1321,12 @@ function TDHistory(props) {
         <MenuItem onClick={() => updatePaymentToSuccess()}>
           <VerifiedIcon />
           &nbsp; &nbsp; Confirm Payment
+        </MenuItem>
+        <Divider sx={{ my: 2 }} />
+
+        <MenuItem onClick={() => generateInvoiceHandler()}>
+          <PictureAsPdfIcon />
+          &nbsp; &nbsp; Generate Invoice
         </MenuItem>
         <Divider sx={{ my: 2 }} />
       </Menu>

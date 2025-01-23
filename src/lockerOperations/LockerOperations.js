@@ -20,7 +20,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import EmailIcon from "@mui/icons-material/Email";
 
 const LockerOperations = (props) => {
-  
   const [state, setState] = useState({
     vertical: "top",
     horizontal: "left",
@@ -40,7 +39,7 @@ const LockerOperations = (props) => {
     setModeOfOperationDailogue(false);
     setReleaseLockWindow(true);
     setMalfunctionLockerWind(false);
-    setUnconditionalLockWind(false)
+    setUnconditionalLockWind(false);
     setOpenLockBySmsWind(false);
   };
 
@@ -211,10 +210,22 @@ const LockerOperations = (props) => {
         <hr />
       </div> */}
 
-      {releaseLockWind && <ReleaseLock />}
-      {unconditionalLockWind && <UnconditionalLockerOpen viaSms={false} />}
-      {malfunctionLockerWind && <MalfunctionLockers />}
-      {openLockBySmsWind && <UnconditionalLockerOpen viaSms={true} />}
+      {releaseLockWind && <ReleaseLock appSwitchedTo={props.appSwitchedTo} />}
+      {unconditionalLockWind && (
+        <UnconditionalLockerOpen
+          appSwitchedTo={props.appSwitchedTo}
+          viaSms={false}
+        />
+      )}
+      {malfunctionLockerWind && (
+        <MalfunctionLockers appSwitchedTo={props.appSwitchedTo} />
+      )}
+      {openLockBySmsWind && (
+        <UnconditionalLockerOpen
+          appSwitchedTo={props.appSwitchedTo}
+          viaSms={true}
+        />
+      )}
     </div>
   );
 };

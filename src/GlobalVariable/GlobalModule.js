@@ -99,11 +99,28 @@ async function commonApiForPostConenctionServer(payload, appType) {
       return data;
     } catch (error) {
       console.log("error : " + error);
+      alert("server error");
       throw error;
     }
   } else {
     alert("error fetching valid url contact admin");
   }
+}
+
+function getCurrentDateSQL() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+}
+
+function getCurrentTimeSQL() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`; // Format: HH:MM:SS
 }
 
 export { lockopenMobileNumber };
@@ -115,4 +132,6 @@ export {
   lockerCategories,
   timeSlot,
   commonApiForPostConenctionServer,
+  getCurrentDateSQL,
+  getCurrentTimeSQL,
 };
