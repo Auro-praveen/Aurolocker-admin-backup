@@ -18,6 +18,8 @@ import MalfunctionLockers from "./malfunctionLockers/MalfunctionLockers";
 import { Alert, IconButton, Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EmailIcon from "@mui/icons-material/Email";
+import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
+import UpdateDevice from "./UpdateDevice";
 
 const LockerOperations = (props) => {
   const [state, setState] = useState({
@@ -34,6 +36,7 @@ const LockerOperations = (props) => {
   const [unconditionalLockWind, setUnconditionalLockWind] = useState(false);
   const [malfunctionLockerWind, setMalfunctionLockerWind] = useState(false);
   const [openLockBySmsWind, setOpenLockBySmsWind] = useState(false);
+  const [updateToDevice, setupdateToDevice] = useState(false);
 
   const onReleaseLockSelect = () => {
     setModeOfOperationDailogue(false);
@@ -41,6 +44,7 @@ const LockerOperations = (props) => {
     setMalfunctionLockerWind(false);
     setUnconditionalLockWind(false);
     setOpenLockBySmsWind(false);
+    setupdateToDevice(false);
   };
 
   console.log(props.releasLocker);
@@ -50,6 +54,7 @@ const LockerOperations = (props) => {
     setReleaseLockWindow(false);
     setMalfunctionLockerWind(false);
     setOpenLockBySmsWind(false);
+    setupdateToDevice(false);
   }, [props.status]);
 
   const onUnconditionalOpenLockSelect = () => {
@@ -58,12 +63,14 @@ const LockerOperations = (props) => {
     setUnconditionalLockWind(true);
     setOpenLockBySmsWind(false);
     setMalfunctionLockerWind(false);
+    setupdateToDevice(false);
   };
 
   const onMalfunctionLockerSelect = () => {
     setModeOfOperationDailogue(false);
     setUnconditionalLockWind(false);
     setMalfunctionLockerWind(true);
+    setupdateToDevice(false);
     setOpenLockBySmsWind(false);
   };
 
@@ -72,6 +79,15 @@ const LockerOperations = (props) => {
     setUnconditionalLockWind(false);
     setMalfunctionLockerWind(false);
     setOpenLockBySmsWind(true);
+    setupdateToDevice(false);
+  };
+
+  const handleUpdateToDevice = () => {
+    setModeOfOperationDailogue(false);
+    setUnconditionalLockWind(false);
+    setMalfunctionLockerWind(false);
+    setOpenLockBySmsWind(false);
+    setupdateToDevice(true);
   };
 
   const closeLockerOperationWindow = () => {
@@ -202,6 +218,25 @@ const LockerOperations = (props) => {
               primary={"Open Lock By SMS"}
             />
           </ListItem>
+
+          <ListItem
+            sx={{
+              cursor: "pointer",
+            }}
+            onClick={() => handleUpdateToDevice()}
+          >
+            <ListItemAvatar>
+              <Avatar sx={{ bgcolor: yellow[100], color: yellow[500] }}>
+                <BrowserUpdatedIcon color="primary" />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              sx={{
+                color: "#000",
+              }}
+              primary={"Update to device"}
+            />
+          </ListItem>
         </List>
       </Dialog>
 
@@ -225,6 +260,9 @@ const LockerOperations = (props) => {
           appSwitchedTo={props.appSwitchedTo}
           viaSms={true}
         />
+      )}
+      {updateToDevice && (
+        <UpdateDevice appSwitchedTo={props.appSwitchedTo} viaSms={true} />
       )}
     </div>
   );

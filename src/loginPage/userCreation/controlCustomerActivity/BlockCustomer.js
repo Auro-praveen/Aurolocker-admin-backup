@@ -3,6 +3,7 @@ import React from "react";
 import {
   commonApiForPostConenction,
   commonApiForPostConenctionServer,
+  storeUserLogs,
 } from "../../../GlobalVariable/GlobalModule";
 import { classUseAuth } from "../../../utils/Auth";
 import { useLogDetails } from "../../../utils/UserLogDetails";
@@ -86,15 +87,20 @@ class BlockCustomer extends React.Component {
         packetType: "BLOCKCUST",
       },
       auth.accessType
-    )
-      .then((data) => {
-        console.log(data);
-        return data;
-      })
-      .catch((err) => console.log("err : " + err));
+    ).catch((err) => {
+      console.log("err : " + err);
+      return false;
+    });
 
     if (result) {
       if (result.status === "SAVE-200") {
+        const logObj = {
+          eventType: "BLOCK-CUSTOMER",
+          remarks: `customer with mob: ${reqObj.mobileNo} has been blocked`,
+          username: this.auth.user,
+        };
+
+        storeUserLogs(logObj);
         return true;
       } else if (result.status === "FAIL-200") {
         return false;

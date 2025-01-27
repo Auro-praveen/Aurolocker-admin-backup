@@ -581,7 +581,7 @@ function DashboardContentComp() {
 
             const userLogsObj = {
               eventType: "SWITCH_APP",
-              remarks: `${appSwitchData.previoslySelected} to MALL-LOCKERS`,
+              remarks: `${appSwitchData.currentSelected} to MALL-LOCKERS`,
             };
 
             userLogDetails.storeUserLogs(userLogsObj);
@@ -621,7 +621,7 @@ function DashboardContentComp() {
 
             const userLogsObj = {
               eventType: "SWITCH_APP",
-              remarks: `${appSwitchData.previoslySelected} to TEMPLE_LOCKERS`,
+              remarks: `${appSwitchData.currentSelected} to TEMPLE_LOCKERS`,
             };
 
             userLogDetails.storeUserLogs(userLogsObj);
@@ -663,7 +663,7 @@ function DashboardContentComp() {
 
             const userLogsObj = {
               eventType: "SWITCH_APP",
-              remarks: `${appSwitchData.previoslySelected} to STATION-LOCKERS`,
+              remarks: `${appSwitchData.currentSelected} to STATION-LOCKERS`,
             };
 
             userLogDetails.storeUserLogs(userLogsObj);

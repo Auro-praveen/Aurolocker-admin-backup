@@ -21,7 +21,9 @@ import LossedCustomers from "./LossedCustomers";
 import PersonOffIcon from "@mui/icons-material/PersonOff";
 import LockClockIcon from "@mui/icons-material/LockClock";
 import PartialLocksDetails from "./PartialLocksDetails";
+import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
 import { useEffect } from "react";
+import FollowupCustomers from "./follow-customers/FollowupCustomers";
 
 const TransactionOperations = (props) => {
   const [modeOfTransactionOperation, setModeOfTransactionOperation] =
@@ -32,6 +34,7 @@ const TransactionOperations = (props) => {
   const [isLossedCustomersSelected, setIsLossedCustomersSelected] =
     useState(false);
   const [isPartialLockSelected, setIsPartialLockSelected] = useState(false);
+  const [isFollowCustomer, setIsFollowCustomer] = useState(false);
 
   const closeLockerOperationWindow = () => {
     props.onCloseHandler("transactionDetails");
@@ -44,6 +47,7 @@ const TransactionOperations = (props) => {
     setIsLossedCustomersSelected(false);
     setIsPartialLockSelected(false);
     setIsTransHistorySelected(false);
+    setIsFollowCustomer(false);
   }, [props.status]);
 
   const openTransactionHistory = () => {
@@ -52,6 +56,7 @@ const TransactionOperations = (props) => {
     setModeOfTransactionOperation(false);
     setIsLossedCustomersSelected(false);
     setIsPartialLockSelected(false);
+    setIsFollowCustomer(false);
   };
 
   const openFailedTransaction = () => {
@@ -60,6 +65,7 @@ const TransactionOperations = (props) => {
     setModeOfTransactionOperation(false);
     setIsLossedCustomersSelected(false);
     setIsPartialLockSelected(false);
+    setIsFollowCustomer(false);
   };
 
   const openLossedCustomers = () => {
@@ -68,6 +74,7 @@ const TransactionOperations = (props) => {
     setModeOfTransactionOperation(false);
     setIsLossedCustomersSelected(true);
     setIsPartialLockSelected(false);
+    setIsFollowCustomer(false);
   };
 
   const openPArtialLocksSelected = () => {
@@ -75,7 +82,21 @@ const TransactionOperations = (props) => {
     setIsTransHistorySelected(false);
     setModeOfTransactionOperation(false);
     setIsLossedCustomersSelected(false);
+    setIsFollowCustomer(false);
     setIsPartialLockSelected(true);
+  };
+
+  const openFollowUpcustomer = () => {
+    if (props.appSwitchedTo === "MALL-LOCKERS") {
+      setIsFailedTransactionSelected(false);
+      setIsTransHistorySelected(false);
+      setModeOfTransactionOperation(false);
+      setIsLossedCustomersSelected(false);
+      setIsFollowCustomer(true);
+      setIsPartialLockSelected(false);
+    } else {
+      alert("This feature is applicable only for Mall-Lockers");
+    }
   };
 
   return (
@@ -150,6 +171,20 @@ const TransactionOperations = (props) => {
             </ListItemAvatar>
             <ListItemText primary={"Partial Locks"} />
           </ListItem>
+
+          <ListItem
+            sx={{
+              cursor: "pointer",
+            }}
+            onClick={() => openFollowUpcustomer()}
+          >
+            <ListItemAvatar>
+              <Avatar sx={{ bgcolor: yellow[100], color: yellow[500] }}>
+                <SettingsAccessibilityIcon color="primary" />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={"Follow-up customer"} />
+          </ListItem>
         </List>
       </Dialog>
 
@@ -162,6 +197,8 @@ const TransactionOperations = (props) => {
           <LossedCustomers />
         ) : isPartialLockSelected ? (
           <PartialLocksDetails />
+        ) : isFollowCustomer ? (
+          <FollowupCustomers />
         ) : null}
       </>
     </div>

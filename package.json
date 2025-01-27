@@ -1,6 +1,6 @@
 {
   "name": "tuckit-locker",
-  "version": "4.24.28",
+  "version": "4.25.31",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",

@@ -123,6 +123,22 @@ function getCurrentTimeSQL() {
   return `${hours}:${minutes}:${seconds}`; // Format: HH:MM:SS
 }
 
+
+// for storing the logs
+async function storeUserLogs(payload) {
+  const obj = {
+    ...payload,
+    date: getCurrentDateSQL(),
+    time: getCurrentTimeSQL(),
+    // username: Auth.user,
+    packetType: "STORE_LOGS",
+  };
+
+  await fetch(PathUrl.localServerPath + "handle-logs").catch((err) =>
+    console.log("err: " + err)
+  );
+}
+
 export { lockopenMobileNumber };
 
 export {
@@ -134,4 +150,5 @@ export {
   commonApiForPostConenctionServer,
   getCurrentDateSQL,
   getCurrentTimeSQL,
+  storeUserLogs
 };

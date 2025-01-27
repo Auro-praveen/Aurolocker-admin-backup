@@ -13,22 +13,13 @@ const StateWiseFormSelection = (props) => {
 
   const Auth = useAuth();
 
-  useEffect(() => {
-    getStatesOfTerminals();
-    console.log("inside");
-    console.log("inside");
-    console.log("inside");
-    console.log("inside");
-  }, []);
+  // useEffect(() => {
+  //   getStatesOfTerminals();
+
+  // }, []);
 
   useEffect(() => {
     getStatesOfTerminals();
-
-    console.log(Auth.serverPaths.localAdminPath);
-    
-    console.log("inside auth access type here here");
-    
-    console.log(Auth.accessAppType);
   }, [Auth.accessAppType]);
 
   const getStatesOfTerminals = async () => {

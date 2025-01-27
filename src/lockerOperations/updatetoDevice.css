@@ -1,0 +1,19 @@
+.update-device-component{
+    width: 520px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px 4px #7c7c7c;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.update-device-content {
+    padding: 25px;
+    margin: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .update-device-component{
+        width: 350px;
+    }
+}

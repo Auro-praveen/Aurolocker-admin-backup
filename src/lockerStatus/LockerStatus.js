@@ -155,7 +155,7 @@ function LockerStatus(props) {
       const termIdRes = terminalIdArr[0].split(",");
 
       const termId = termIdRes[1].replace(/\s+/g, "").trim();
-
+      setSelectedTerminalId(terminalIdArr[0]);
       lockerStatusFunction(termId);
     }
   };

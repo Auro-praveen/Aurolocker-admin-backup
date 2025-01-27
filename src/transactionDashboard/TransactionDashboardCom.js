@@ -57,6 +57,7 @@ import {
   commonApiForGetConenction,
   commonApiForPostConenction,
   commonApiForPostConenctionServer,
+  storeUserLogs,
 } from "../GlobalVariable/GlobalModule";
 import { useAuth } from "../utils/Auth";
 
@@ -149,6 +150,7 @@ function TransactionDashboardCom(props) {
   const [btnText, setBtnText] = useState("Td History");
 
   const [cancelPaymentWind, setCancelPaymentWind] = useState(false);
+  const [offlinePayment, setOfflinePayment] = useState(false);
   const [loadPage, setLoadPage] = useState(false);
 
   const [custData, setCustData] = useState({
@@ -195,6 +197,8 @@ function TransactionDashboardCom(props) {
   const [iconViewDisable, setIconViewDisable] = useState(true);
   const [tableViewDisable, setTableViewDisable] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [offlineammount, setOfflineAmount] = useState("");
 
   // fot the stack alert
   const [state, setState] = useState({
@@ -1013,19 +1017,26 @@ function TransactionDashboardCom(props) {
     // alert("coming soon");
     // setAnchorEl(null);
 
-    const payload = {
-      PacketType: "offlinepay",
-      MobileNo: manualOVerrideItems.MobileNo,
-      terminalID: manualOVerrideItems.terminalID,
-      LockerNo: lockNo,
-      udate: dateOfTransaction,
-    };
+    if (offlineammount !== "" && offlineammount > 0) {
+      const payload = {
+        PacketType: "offlinepay",
+        MobileNo: manualOVerrideItems.MobileNo,
+        terminalID: manualOVerrideItems.terminalID,
+        LockerNo: lockNo,
+        recdate: dateOfTransaction,
+        amount: offlineammount.includes(".")
+          ? offlinePayment
+          : offlineammount + ".00",
+      };
 
-    setLoadBackdrop(true);
-    setOpenCancelBookingDailogue(false);
+      setLoadBackdrop(true);
 
-    handleServerRequests(payload);
-    handleClose();
+      handleServerRequests(payload);
+      handleClose();
+      setCancelPaymentWind(false);
+    } else {
+      alert("amount is required");
+    }
   };
 
   const handleServerRequests = async (payload) => {
@@ -1035,10 +1046,19 @@ function TransactionDashboardCom(props) {
     )
       .then((data) => data)
       .catch((err) => {
+        setOfflinePayment(false);
         setLoadBackdrop(false);
       });
     if (result) {
       if (result.responseCode === "SUCCESS-200") {
+        const logObj = {
+          eventType: "CANCEL-OFFLINE-PAYMENT",
+          remarks: `cancelled booking on ${payload.terminalID}, lockNo: ${payload.LockerNo}, amount: ${payload.amoun}`,
+          username: Auth.user,
+        };
+
+        storeUserLogs(logObj);
+
         alert("invloice genereted successfully");
       } else if (result.responseCode === "INVMOB-201") {
         alert("invalid mobile number");
@@ -1048,9 +1068,29 @@ function TransactionDashboardCom(props) {
         alert("something went wrong!");
       }
       setLoadBackdrop(false);
+      setOfflinePayment(false);
     } else {
       alert("server communication error:");
       setLoadBackdrop(false);
+      setOfflinePayment(false);
+    }
+  };
+
+  const handleOpenOfflinePaymentWindow = () => {
+    setOpenCancelBookingDailogue(false);
+    setOfflinePayment(true);
+  };
+
+  const handleOfflinePaymentInput = (e) => {
+    const value = e.target.value;
+
+    // Allow only numbers and at most one decimal point
+    const regex = /^[0-9]*\.?[0-9]*$/;
+
+    if (regex.test(value)) {
+      setOfflineAmount(value);
+    } else {
+      alert("please enter valid input");
     }
   };
 
@@ -1813,7 +1853,7 @@ function TransactionDashboardCom(props) {
               sx={{ mb: 1 }}
               color="secondary"
               variant="contained"
-              onClick={() => cancelBookingOfflinePayment()}
+              onClick={() => handleOpenOfflinePaymentWindow()}
               fullWidth
             >
               {" "}
@@ -1901,6 +1941,60 @@ function TransactionDashboardCom(props) {
           </Button>
           <Button onClick={() => handleCancelBooking()} autoFocus>
             confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={offlinePayment}
+        // aria-labelledby="responsive-dialog-title"
+        onClose={() => {
+          setOfflinePayment(false);
+        }}
+        style={{
+          textAlign: "center",
+          // width: "500px",
+          // alignItems: "center",
+          margin: "auto",
+        }}
+
+        // maxWidth="10"
+      >
+        <DialogTitle>
+          {/* {"Do You Want To Cancel current Booking ?"} */}
+          <b
+            style={{
+              color: "crimson",
+              textAlign: "center",
+              alignItems: "center",
+            }}
+          >
+            {"Please verify before submitting."}
+          </b>
+          <hr style={{ marginTop: "5px", marginBottom: "0px" }} />
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <div>
+              <b style={{ color: "chocolate" }}>Please provide details</b>{" "}
+              <TextField
+                fullWidth
+                type="text"
+                name="offlineammount"
+                value={offlineammount}
+                placeholder="ie 12.50"
+                label={"Enter Amount"}
+                onChange={(e) => handleOfflinePaymentInput(e)}
+              />
+            </div>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={() => setOfflinePayment(false)}>
+            Cancel
+          </Button>
+          <Button onClick={() => cancelBookingOfflinePayment()} autoFocus>
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

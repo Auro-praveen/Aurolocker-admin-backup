@@ -1,0 +1,23 @@
+.follow-up-component{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.follow-up-component:first-child{
+    margin-bottom: 20px;
+}
+
+.follow-up-content{
+    color: #427a6b;
+}
+
+.follow-up-no-content{
+    text-align: center;
+    font-size: large;
+    font-weight: 400;
+    color: #6e3b68;
+}
+
+.follow-up-details{
+    
+}

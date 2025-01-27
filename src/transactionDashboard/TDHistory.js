@@ -826,7 +826,7 @@ function TDHistory(props) {
       MobileNo: tdHistoryManualOverride.MobileNo,
       terminalID: tdHistoryManualOverride.terminalID,
       LockerNo: tdHistoryManualOverride.LockerNo,
-      udate: dateAndTimeOfToActiveTd.dateOfOpen,
+      tradate: dateAndTimeOfToActiveTd.dateOfOpen,
     };
 
     handleServerRequests(payload);

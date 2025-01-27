@@ -1,5 +1,8 @@
 import React from "react";
-import { commonApiForPostConenction } from "../../../GlobalVariable/GlobalModule";
+import {
+  commonApiForPostConenction,
+  storeUserLogs,
+} from "../../../GlobalVariable/GlobalModule";
 import LockerCatagoryTable from "../../../settingsComponent/TableFunction/LockerCatagoryTable";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -196,10 +199,31 @@ class UnblockCustomer extends React.Component {
 
     if (result) {
       if (result.status === "UNBLOCK-200") {
+        const logObj = {
+          eventType: "BLOCK-CUSTOMER",
+          remarks: `customer with mob: ${payload.mobileNo} has been blocked`,
+          username: auth.user,
+        };
+
+        storeUserLogs(logObj);
         return true;
       } else if (result.status === "UNBLOCK-404") {
+        const logObj = {
+          eventType: "UNBLOCK-CUSTOMER",
+          remarks: `customer with mob: ${payload.mobileNo} has been blocked`,
+          username: auth.user,
+        };
+
+        storeUserLogs(logObj);
         return false;
       } else if (result.status === "BLOCKUPDATE-200") {
+        const logObj = {
+          eventType: "BLOCK-CUST-AGAIN",
+          remarks: `customer with mob: ${payload.mobileNo} has been blocked again`,
+          username: auth.user,
+        };
+
+        storeUserLogs(logObj);
         return true;
       } else if (result.status === "BLOCKUPDATE-404") {
         return false;
