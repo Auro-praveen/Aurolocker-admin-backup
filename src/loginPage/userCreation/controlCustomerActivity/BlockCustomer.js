@@ -97,7 +97,7 @@ class BlockCustomer extends React.Component {
         const logObj = {
           eventType: "BLOCK-CUSTOMER",
           remarks: `customer with mob: ${reqObj.mobileNo} has been blocked`,
-          username: this.auth.user,
+          username: auth.user,
         };
 
         storeUserLogs(logObj);

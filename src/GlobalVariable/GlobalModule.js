@@ -123,7 +123,6 @@ function getCurrentTimeSQL() {
   return `${hours}:${minutes}:${seconds}`; // Format: HH:MM:SS
 }
 
-
 // for storing the logs
 async function storeUserLogs(payload) {
   const obj = {
@@ -134,9 +133,13 @@ async function storeUserLogs(payload) {
     packetType: "STORE_LOGS",
   };
 
-  await fetch(PathUrl.localServerPath + "handle-logs").catch((err) =>
-    console.log("err: " + err)
-  );
+  await fetch(PathUrl.localServerPath + "handle-logs", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+    body: JSON.stringify(obj),
+  }).catch((err) => console.log("err: " + err));
 }
 
 export { lockopenMobileNumber };
@@ -150,5 +153,5 @@ export {
   commonApiForPostConenctionServer,
   getCurrentDateSQL,
   getCurrentTimeSQL,
-  storeUserLogs
+  storeUserLogs,
 };

@@ -35,11 +35,11 @@ const UserHandler = () => {
 
   const Navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("----- access type in functional conponentn :-----");
+  // useEffect(() => {
+  //   console.log("----- access type in functional conponentn :-----");
 
-    console.log(Auth.accessAppType);
-  }, []);
+  //   console.log(Auth.accessAppType);
+  // }, []);
 
   const handleClickOpen = () => {
     setUsersHandler(true);
