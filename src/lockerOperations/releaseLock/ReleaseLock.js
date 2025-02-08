@@ -978,7 +978,7 @@ const ReleaseLock = (props) => {
                 </Button>
               </div>
             </>
-          ) : releaseLockObject.terminalID === "AHCEBGF" ? (
+          ) : releaseLockObject.terminalID === "AHCEBGFOLD" ? (
             <>
               <AHCEBGFlayout
                 isMalfunction={false}

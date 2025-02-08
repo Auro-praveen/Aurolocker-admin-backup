@@ -37,7 +37,7 @@ function LockerStatus(props) {
 
   const [stateName, setStateName] = useState("");
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedTerminalId, setSelectedTerminalId] = useState("");
   const [allTerminalIds, setAllTerminalIds] = useState([]);
 

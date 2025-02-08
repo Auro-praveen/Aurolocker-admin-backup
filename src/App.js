@@ -192,7 +192,7 @@ function App() {
                 path="/layout-test"
                 element={
                   <CommonLayoutForAll
-                    terminalID={"LULULKOGFR"}
+                    terminalID={"AHCEBGF"}
                     isMalfunction={false}
                     lockersInUse={[]}
                     userSelectedLock={[]}
@@ -200,7 +200,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/*" element={<LoginMainPage />}></Route>
+              <Route path="/*" element={<DashboardContentComp />}></Route>
             </Routes>
           </BrowserRouter>
         </UserLogDetails>

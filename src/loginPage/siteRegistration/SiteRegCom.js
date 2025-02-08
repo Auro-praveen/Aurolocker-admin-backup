@@ -36,9 +36,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import SitesRegisterd from "./SitesRegisterd";
 
-const siteStatusType = ["Active", "Inactive"];
-const outletType = ["RENT", "GENERAL"];
-
+const siteStatusType = ["ACTIVE", "INACTIVE"];
+const outletType = ["GENERAL", "RENT"];
 
 function SiteRegistrationCom() {
   const [siteRegistration, setSiteRegistration] = useState({
@@ -56,9 +55,11 @@ function SiteRegistrationCom() {
     userName: "",
     lattitude: "",
     longitude: "",
-    status: "",
-    outletType: "",
+    status: siteStatusType[0],
+    outletType: outletType[0],
   });
+
+  const [dbUpdated, setDbUpdated] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -88,6 +89,12 @@ function SiteRegistrationCom() {
     getAllTerminalIds();
   }, []);
 
+  // useEffect(() => {
+  //   if (dbUpdated) {
+  //     setDbUpdated(false);
+  //   }
+  // }, [dbUpdated]);
+
   function onSiteRegTypeSelection(typeOfOp) {
     setUsersHandler(false);
 
@@ -95,6 +102,20 @@ function SiteRegistrationCom() {
       setNewSiteHandler(true);
     } else {
       setNewSiteHandler(false);
+
+      // make api request here
+
+      if (allTerminalids.length > 0) {
+        const path =
+          Auth.serverPaths.localAdminPath +
+          "SiteRegOperations" +
+          "?terminalid=" +
+          allTerminalids[0];
+
+        makeApiRequest(path);
+      } else {
+        alert("no terminal-ids found");
+      }
     }
   }
 
@@ -141,6 +162,7 @@ function SiteRegistrationCom() {
   const verifyBeforeSubmitting = (e) => {
     e.preventDefault();
     setOpen(true);
+    setDbUpdated(false);
   };
 
   const submitSiteRegForm = () => {
@@ -159,7 +181,7 @@ function SiteRegistrationCom() {
           siteRegistration.mobileNumber !== null ||
           siteRegistration.mobileNumber !== ""
         ) {
-          if (siteRegistration.mobileNumber.length === 10) {
+          if (siteRegistration.mobileNumber.length >= 10) {
             setBackdropOpen(true);
             setDublicateTerminalid(false);
 
@@ -175,28 +197,36 @@ function SiteRegistrationCom() {
             })
               .then((response) => response.json())
               .then((data) => {
+                console.log("data been trying to fetch fro backend");
+                console.log(data);
+
                 if (data.status === "success") {
-                  alert("data Stored Successfully");
+                  // console.log("setting update to true");
+
+                  // setDbUpdated(true);
+                  setDbUpdated(true);
                   fetchToUserLogs();
 
-                  setSiteRegistration({
-                    slno: "",
-                    siteId: "",
-                    siteName: "",
-                    noOfLockers: "",
-                    terminalId: "",
-                    areaCode: "",
-                    areaName: "",
-                    cityName: "",
-                    state: "",
-                    imeiNumber: "",
-                    mobileNumber: "",
-                    userName: "",
-                    lattitude: "",
-                    longitude: "",
-                    status: "",
-                    outletType: "",
-                  });
+                  // setSiteRegistration({
+                  //   slno: "",
+                  //   siteId: "",
+                  //   siteName: "",
+                  //   noOfLockers: "",
+                  //   terminalId: "",
+                  //   areaCode: "",
+                  //   areaName: "",
+                  //   cityName: "",
+                  //   state: "",
+                  //   imeiNumber: "",
+                  //   mobileNumber: "",
+                  //   userName: "",
+                  //   lattitude: "",
+                  //   longitude: "",
+                  //   status: "",
+                  //   outletType: "",
+                  // });
+
+                  alert("data Stored Successfully!");
                 } else if (data.status === "invalid-user") {
                   alert("Invalid User Credential");
                 } else {
@@ -231,13 +261,17 @@ function SiteRegistrationCom() {
               // 'Content-Type': 'application/json'
             },
             // mode:'no-cors',
-            body: JSON.stringify({ ...siteRegistration, pwd: password, packetType:"UPDATE_SITE" }),
+            body: JSON.stringify({
+              ...siteRegistration,
+              pwd: password,
+              packetType: "UPDATE_SITE",
+            }),
           })
             .then((response) => response.json())
             .then((data) => {
               if (data.status === "success") {
                 alert("data Stored Successfully");
-
+                setDbUpdated(true);
                 fetchToUserLogs();
               } else if (data.status === "invalid-user") {
                 alert("Invalid User Credential");
@@ -257,7 +291,6 @@ function SiteRegistrationCom() {
         }
       }
     }
-
     // e.target.reset();
     setIsDisabled(false);
   };
@@ -270,7 +303,7 @@ function SiteRegistrationCom() {
     useLogs.storeUserLogs(fetchObj);
   };
 
-  const terminalIdEventHandler = async (e) => {
+  const terminalIdEventHandler = (e) => {
     setBackdropOpen(true);
     // const path =
     //   PathUrl.localServerPath +
@@ -279,16 +312,29 @@ function SiteRegistrationCom() {
     //   e.target.value;
 
     const path =
-    Auth.serverPaths.localAdminPath +
-    "SiteRegOperations" +
-    "?terminalid=" +
-    e.target.value;
+      Auth.serverPaths.localAdminPath +
+      "SiteRegOperations" +
+      "?terminalid=" +
+      e.target.value;
 
-      
+    makeApiRequest(path);
 
+    // setSiteRegistration({
+    //   ...siteRegistration,
+    //   terminalId: e.target.value
+    // })
+  };
+
+  const submitOnPasswordVerify = () => {
+    if (password.length > 2) {
+      submitSiteRegForm();
+    }
+  };
+
+  const makeApiRequest = async (path) => {
     await commonApiForGetConenction(path)
       .then((data) => {
-        console.log(data.areaCode);
+        console.log(data);
 
         setSiteRegistration({
           // ...siteRegistration,
@@ -307,8 +353,10 @@ function SiteRegistrationCom() {
           userName: data.userName === undefined ? "" : data.userName,
           lattitude: data.lattitude === undefined ? "" : data.lattitude,
           longitude: data.longitude === undefined ? "" : data.longitude,
-          status: data.siteStatus === undefined ? "" : data.siteStatus,
-          outletType: data.outletType === undefined ? "" : data.outletType,
+          status:
+            data.siteStatus === undefined ? siteStatusType[0] : data.siteStatus,
+          outletType:
+            data.outletType === undefined ? outletType[0] : data.outletType,
         });
 
         setBackdropOpen(false);
@@ -317,17 +365,6 @@ function SiteRegistrationCom() {
         console.log("error : " + err);
         setBackdropOpen(false);
       });
-
-    // setSiteRegistration({
-    //   ...siteRegistration,
-    //   terminalId: e.target.value
-    // })
-  };
-
-  const submitOnPasswordVerify = () => {
-    if (password.length > 2) {
-      submitSiteRegForm();
-    }
   };
 
   return (
@@ -668,7 +705,7 @@ function SiteRegistrationCom() {
                       color="info"
                       htmlFor="uncontrolled-native"
                     >
-                      Choose terminalId
+                      choose status
                     </InputLabel>
                     <NativeSelect
                       // defaultValue={30}
@@ -709,7 +746,7 @@ function SiteRegistrationCom() {
                       color="info"
                       htmlFor="uncontrolled-native"
                     >
-                      Choose terminalId
+                      choose outlet type
                     </InputLabel>
                     <NativeSelect
                       // defaultValue={30}
@@ -749,7 +786,8 @@ function SiteRegistrationCom() {
           </div>
         </div>
 
-        <SitesRegisterd />
+        <SitesRegisterd isDbUpdated={dbUpdated} />
+
         <Dialog
           open={open}
           onClose={handleClose}

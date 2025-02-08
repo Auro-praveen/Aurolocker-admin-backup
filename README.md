@@ -19,3 +19,10 @@ Author -> Praveen c
 -> added new feature for update to device, for sim, lan, wifi
 -> hide terminalids which are marked inactive in the site-registration
 -> add logs to device-update
+
+
+08-01-2025
+-> fixed some bugs regarding update to device, offlile payment.
+-> admin can delete the users, and fixed some bugs regarding user creation,
+-> added new feature for unconditional open locker with AES encryption and decryption for request and response
+-> fixed other some minor bugs regarding block and unblock customers from booking the locker

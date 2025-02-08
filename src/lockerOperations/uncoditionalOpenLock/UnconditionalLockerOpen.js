@@ -35,7 +35,11 @@ import NexusHyd2Layout from "../layoutsAccorsingTerminalId/NexusHyd2Layout";
 import MMBLR1Layout from "../layoutsAccorsingTerminalId/MMBLR1Layout";
 import ORN2Layout from "../layoutsAccorsingTerminalId/ORN2Layout";
 
-import { lockopenMobileNumber } from "../../GlobalVariable/GlobalModule";
+import {
+  decryptAES,
+  encryptAES,
+  lockopenMobileNumber,
+} from "../../GlobalVariable/GlobalModule";
 import MMBLR3Layout from "../layoutsAccorsingTerminalId/MMBLR3Layout";
 import PMCBB1Layout from "../layoutsAccorsingTerminalId/PMCBB1Layout";
 import PMCCNBLLayout from "../layoutsAccorsingTerminalId/PMCCNBLLayout";
@@ -150,6 +154,7 @@ const UnconditionalLockerOpen = (props) => {
   // to get all ther terminalids from the present transaction details
 
   const openLockViaSms = (openLockViaSmsObj) => {
+    
     fetch(Auth.serverPaths.localAdminPath + "LockerOperationViaSms", {
       method: "POST",
       headers: {
@@ -202,14 +207,44 @@ const UnconditionalLockerOpen = (props) => {
         delete serverObj.userId;
         console.log(serverObj);
 
-        fetch(Auth.serverPaths.serverUrl, {
+        let path;
+
+        switch (Auth.accessAppType) {
+          case "MALL-LOCKERS":
+            path = urlPath.serverUrlUNCLOCKMALL;
+            break;
+
+          case "STATION-LOCKERS":
+            path = urlPath.serverUrlUNCLOCKMALL;
+            break;
+
+          case "TEMPLE-LOCKERS":
+            path = urlPath.serverUrlUNCLOCKMALL;
+            break;
+
+          default:
+            path = Auth.serverPaths.serverUrl;
+            break;
+        }
+
+        const payload = encryptAES(JSON.stringify(serverObj));
+
+        fetch(path, {
           method: "POST",
           headers: {
             Accept: "application/json",
           },
-          body: JSON.stringify(serverObj),
+          body: payload,
         })
-          .then((resp) => resp.json())
+          .then((resp) => {
+            console.log("unconditional lockers");
+
+            console.log(resp);
+
+            const decrypt = decryptAES(resp);
+
+            return JSON.parse(decrypt);
+          })
           .then((data) => {
             console.log(data);
             if (data.responseCode === "REQAC-200") {
@@ -1315,7 +1350,7 @@ const UnconditionalLockerOpen = (props) => {
             </Button>
           </div>
         </>
-      ) : unconditionalLockObject.terminalID === "AHCEBGF" ? (
+      ) : unconditionalLockObject.terminalID === "AHCEBGFOLD" ? (
         <>
           <AHCEBGFlayout
             isMalfunction={false}

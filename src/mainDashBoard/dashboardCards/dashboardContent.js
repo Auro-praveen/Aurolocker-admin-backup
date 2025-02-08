@@ -62,6 +62,7 @@ function DashboardContentComp() {
   // for transti lockers
   const [locksTransit, setLocksTransit] = useState(false);
   const [transitLockerTid, setTranstiLockTid] = useState(null);
+  const [selectedAppType, setSelectedAppType] = useState("");
 
   // const isIgnoreClicked = useRef(false);
   // const [transactionTransit, setTransactionTransit] = useState(null);
@@ -555,7 +556,7 @@ function DashboardContentComp() {
 
   const handleSwitchBetweenLockers = async (selectionType) => {
     setOpenBackdrop(true);
-
+    setSelectedAppType(selectionType);
     const appPermissions = Auth.appPermissions;
 
     if (!appPermissions.includes(selectionType)) {
@@ -608,6 +609,9 @@ function DashboardContentComp() {
           const result = await checkConnectionToOtherTerminalApp(
             PathUrl.templeLocalServerPath + "CheckConnection"
           );
+
+          // const result = "STATUS-404";
+
           if (result === "STATUS-200") {
             Auth.handleAccessAppType("TEMPLE-LOCKERS");
             setTerminalTypeSelected(selectionType);
@@ -637,7 +641,6 @@ function DashboardContentComp() {
         } catch (error) {
           setOpenBackdrop(false);
           setAppInactive(true);
-          setOpenBackdrop(false);
           // setAppSwitchData((prevApp) => ({
           //   currentSelected: "Tuckit TEMPLE-LOCKERS",
           //   previoslySelected: prevApp.currentSelected,
@@ -752,7 +755,7 @@ function DashboardContentComp() {
         onClose={() => hideAppNotRespondingAlert()}
       >
         <Alert onClose={() => hideAppNotRespondingAlert()} severity="error">
-          {appSwitchData.currentSelected +
+          {selectedAppType +
             " is not responding, try again later or contact admin"}
         </Alert>
       </Snackbar>

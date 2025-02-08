@@ -6,6 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
 import "./test.css";
+import { decryptAES, encryptAES } from "../GlobalVariable/GlobalModule";
 
 const populationLimit = 277500;
 const url =
@@ -17,8 +18,10 @@ const Test = () => {
 
   const [countriesAbovePop, setcountriesAbovePop] = useState([]);
 
+  const [data, setDate] = useState();
+
   useEffect(() => {
-    getValFunction(Number(0));
+    // getValFunction(Number(0));
   }, []);
 
   const getValFunction = (num) => {
@@ -197,6 +200,39 @@ const Test = () => {
     console.log(oData);
   };
 
+  const securityOperations = (type) => {
+
+
+
+    if (type === "ENCRYPT") {
+      const obj = {
+        name: "praveen",
+        age: 27,
+        place: "bengaluru",
+      };
+      const result = encryptAES(JSON.stringify(obj));
+      if (result) {
+        setDate(result);
+      } else {
+        setDate("");
+      }
+
+      console.log(result);
+      
+    } else {
+      const result = decryptAES(data);
+      JSON.parse(result)
+      if (result) {
+        setDate(result)
+      } else {
+        setDate("")
+      }
+      console.log(result);
+    }
+    
+
+  };
+
   // ans = [132962.77,  149463.66, 158574.19]
 
   return (
@@ -216,6 +252,26 @@ const Test = () => {
         <Button variant="contained" onClick={() => checkNumer()}>
           Test
         </Button>
+      </div>
+
+      <div>
+        <Button
+          variant="contained"
+          onClick={() => securityOperations("ENCRYPT")}
+        >
+          enrypt
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => securityOperations("DECRYPT")}
+        >
+          decrypt
+        </Button>
+      </div>
+
+      <div>
+        <h2> data here </h2>
+        <p> {data} </p>
       </div>
 
       <div className="logo-contain">
@@ -240,7 +296,7 @@ const Test = () => {
         </div>
       </div>
 
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -251,7 +307,7 @@ const Test = () => {
         </div>
       </div>
 
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -262,7 +318,7 @@ const Test = () => {
         </div>
       </div>
 
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -273,7 +329,7 @@ const Test = () => {
         </div>
       </div>
 
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -283,7 +339,7 @@ const Test = () => {
           <FacebookIcon className="log" color="secondary" fontSize="large" />
         </div>
       </div>
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -293,7 +349,7 @@ const Test = () => {
           <FacebookIcon className="log" color="secondary" fontSize="large" />
         </div>
       </div>
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -303,7 +359,7 @@ const Test = () => {
           <FacebookIcon className="log" color="secondary" fontSize="large" />
         </div>
       </div>
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -313,7 +369,7 @@ const Test = () => {
           <FacebookIcon className="log" color="secondary" fontSize="large" />
         </div>
       </div>
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -323,7 +379,7 @@ const Test = () => {
           <FacebookIcon className="log" color="secondary" fontSize="large" />
         </div>
       </div>
-      <div className="logo-contain"> 
+      <div className="logo-contain">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />
@@ -333,7 +389,7 @@ const Test = () => {
           <FacebookIcon className="log" color="secondary" fontSize="large" />
         </div>
       </div>
-      <div className="logo-contain" id="last-page"> 
+      <div className="logo-contain" id="last-page">
         <div className="logos">
           <a href="https://in.bookmyshow.com/bengaluru/movies/ondu-sarala-premakathe/ET00384369">
             <TwitterIcon className="log" color="secondary" fontSize="large" />

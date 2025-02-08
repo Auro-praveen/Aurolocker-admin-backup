@@ -200,8 +200,8 @@ class UnblockCustomer extends React.Component {
     if (result) {
       if (result.status === "UNBLOCK-200") {
         const logObj = {
-          eventType: "BLOCK-CUSTOMER",
-          remarks: `customer with mob: ${payload.mobileNo} has been blocked`,
+          eventType: "UNBLOCK-CUSTOMER",
+          remarks: `customer with mob: ${payload.mobileNo} has been unblocked`,
           username: auth.user,
         };
 

@@ -1,4 +1,5 @@
 import PathUrl from "./urlPath.json";
+import CryptoJS from "crypto-js";
 
 const lockopenMobileNumber = "0099009900";
 
@@ -142,6 +143,38 @@ async function storeUserLogs(payload) {
   }).catch((err) => console.log("err: " + err));
 }
 
+const key = CryptoJS.enc.Utf8.parse("ganmanaurotuckit"); // 16-byte AES key
+
+// Encrypt function (without IV using ECB mode)
+function encryptAES(data) {
+
+  try {
+    var encrypted = CryptoJS.AES.encrypt(data, key, {
+      mode: CryptoJS.mode.ECB, // No IV needed
+      padding: CryptoJS.pad.Pkcs7,
+    });
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+  console.log(encrypted);
+  
+
+  return encrypted.toString();
+}
+
+
+// Decrypt function (without IV using ECB mode)
+function decryptAES(encryptedData) {
+  const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
+    mode: CryptoJS.mode.ECB, // No IV needed
+    padding: CryptoJS.pad.Pkcs7,
+  });
+
+  return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
 export { lockopenMobileNumber };
 
 export {
@@ -154,4 +187,6 @@ export {
   getCurrentDateSQL,
   getCurrentTimeSQL,
   storeUserLogs,
+  encryptAES,
+  decryptAES,
 };

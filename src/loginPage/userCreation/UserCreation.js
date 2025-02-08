@@ -197,7 +197,10 @@ function UserCreation() {
 
     let appPerm;
 
-    if (data.appPermissions.length > 0) {
+    console.log(data);
+    
+
+    if (data.appPermissions  && data.appPermissions.length > 0) {
       appPerm = data.appPermissions.join(",");
     } else {
       appPerm = "";

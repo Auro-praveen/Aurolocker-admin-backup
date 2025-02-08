@@ -84,7 +84,7 @@ const UpdateDevice = () => {
         const obj = {
           PacketType: "devconntype",
           terminalID: termId,
-          uDate: getCurrentDateSQL(),
+          udate: getCurrentDateSQL(),
           conType: selConType,
         };
 

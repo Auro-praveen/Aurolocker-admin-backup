@@ -1123,7 +1123,7 @@ const MalfunctionLockers = (props) => {
             </Button>
           </div>
         </>
-      ) : malfunctionLocksObj.terminalID === "AHCEBGF" ? (
+      ) : malfunctionLocksObj.terminalID === "AHCEBGFOLD" ? (
         <>
           <AHCEBGFlayout
             isMalfunction={true}

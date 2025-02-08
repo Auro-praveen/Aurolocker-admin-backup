@@ -137,7 +137,7 @@ class FollowupCustomers extends Component {
           ...prev,
           followUpCustomers: [],
           Auth: !prev.Auth && prev.Auth !== "" && auth,
-          dateSelected: payload.selecteDate,
+          dateSelected: payload.selectedDate,
           isDateWrong:false
         }));
       }
@@ -171,7 +171,7 @@ class FollowupCustomers extends Component {
             ...prev,
             followUpCustomers: followupCustomers,
             Auth: !prev.Auth && prev.Auth !== "" && auth,
-            dateSelected: payload.selecteDate,
+            dateSelected: payload.selectedDate,
             isDateWrong:false
           }));
         }
@@ -191,7 +191,7 @@ class FollowupCustomers extends Component {
             ...prev,
             followUpCustomers: [],
             Auth: !prev.Auth && prev.Auth !== "" && auth,
-            dateSelected: payload.selecteDate,
+            dateSelected: payload.selectedDate,
             isDateWrong:false
           }));
         }
@@ -214,7 +214,7 @@ class FollowupCustomers extends Component {
           ...prev,
           followUpCustomers: [],
           Auth: !prev.Auth && prev.Auth !== "" && auth,
-          dateSelected: payload.selecteDate,
+          dateSelected: payload.selectedDate,
           isDateWrong:false
         }));
       }

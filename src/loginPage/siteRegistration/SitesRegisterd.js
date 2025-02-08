@@ -36,8 +36,11 @@ class SiteRegistrationDetails extends Component {
 
   componentDidMount() {
     const { auth } = this.props;
+
+    
+    
     if (auth) {
-      this.handleApiRequest(auth, { packetType: "GET_SITES" });
+      // this.handleApiRequest(auth, { packetType: "GET_SITES" });
 
       this.setState((prevState) => ({
         ...this.state.siteData,
@@ -48,18 +51,29 @@ class SiteRegistrationDetails extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.isDbUpdated !== this.props.isDbUpdated &&
+      this.props.isDbUpdated
+    ) {
+      alert("inside component did update");
+      this.handleApiRequest(this.state.Auth, { packetType: "GET_SITES" });
+    }
+  }
+
   async handleApiRequest(auth, payload) {
     let Auth;
-    if (auth == null || auth === undefined || auth === "") {
+    if (auth !== null || auth !== undefined || auth !== "") {
       Auth = auth;
     } else {
       Auth = this.state.Auth;
     }
 
+
     const result = await commonApiForPostConenction(
       "SiteRegOperations",
       payload,
-      Auth.accessType
+      Auth.accessAppType
     );
 
     if (result) {
@@ -147,7 +161,9 @@ class SiteRegistrationDetails extends Component {
   }
 
   handleStateName(stateName) {
-    this.handleApiRequest("", {
+    const { auth } = this.props;
+
+    this.handleApiRequest(auth, {
       packetType: "STATE_WISE_SITE",
       statename: stateName,
     });
@@ -156,11 +172,11 @@ class SiteRegistrationDetails extends Component {
   render() {
     const state = this.state;
     const { siteData } = this.state;
-    const handleStateName = this.handleStateName;
+    const handleStateName = (stateName) => this.handleStateName(stateName);
     return (
       <>
-        <h4 className="h4-style" style={{textAlign: 'center'}}>
-          Terminal-Sitre Details for: {state.stateName}
+        <h4 className="h4-style" style={{ textAlign: "center" }}>
+          Terminal-Site Details for: {state.stateName}
         </h4>
 
         <StateWiseFormSelection

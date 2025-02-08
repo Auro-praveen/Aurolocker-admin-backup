@@ -259,7 +259,32 @@ function TransactionDashboardCom(props) {
 
   // added here for switch locker app
 
-  // useEffect(() => {}, [props.appSwitchedTo]);
+  useEffect(() => {
+    setSelectedTerminalId("");
+    setCustData({
+      slno: "",
+      terminalId: "",
+      custemerName: "",
+      mobileNumber: "",
+      amount: "",
+      dateOfOpen: "",
+      timeOfOpen: "",
+      status: "",
+      noOfHours_inmins: "",
+      transactionId: "",
+      lockNo: "",
+      passcode: "",
+      excess_amount: "",
+      excess_hour_inmins: "",
+      stored_item: "",
+      balance: "",
+      partialOpen: "",
+      amount_withoutGST: "",
+      CGST: "",
+      SGST: "",
+      amount_withGST: "",
+    });
+  }, [props.appSwitchedTo]);
 
   // praveen changed here for statewise operations
 
