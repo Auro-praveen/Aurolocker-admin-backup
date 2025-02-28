@@ -26,3 +26,9 @@ Author -> Praveen c
 -> admin can delete the users, and fixed some bugs regarding user creation,
 -> added new feature for unconditional open locker with AES encryption and decryption for request and response
 -> fixed other some minor bugs regarding block and unblock customers from booking the locker
+
+28-02-2025
+-> added new ffeature send automatic message on intitiating refund to the customer (which is done in backend)
+-> added statwise access to the release locker, unconditional locker open, and for malfunction lockers.
+-> fixed follow up customers bug, and some minor problems
+-> fixed bug of not switching to other apps like station lockers, durung uncoditional locker open

@@ -147,7 +147,6 @@ const key = CryptoJS.enc.Utf8.parse("ganmanaurotuckit"); // 16-byte AES key
 
 // Encrypt function (without IV using ECB mode)
 function encryptAES(data) {
-
   try {
     var encrypted = CryptoJS.AES.encrypt(data, key, {
       mode: CryptoJS.mode.ECB, // No IV needed
@@ -155,10 +154,9 @@ function encryptAES(data) {
     });
   } catch (error) {
     console.log(error);
-    
   }
 
-  console.log(encrypted);
+  // console.log(encrypted);
   
 
   return encrypted.toString();

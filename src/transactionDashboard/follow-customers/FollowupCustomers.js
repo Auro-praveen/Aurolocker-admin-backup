@@ -27,7 +27,10 @@ import "./followup.css";
 const data = {
   response: 200,
   tdDetails:
-    '[{"slno":187482,"customerName":"bharat","mobileNo":"2222222222","date_of_open":"Jan 23, 2025","time_of_open":"03:49:02 pm","terminalid":"ORN","no_of_hours":60.0,"amount":1400.0,"status":"paymentSuccess","transactionID":"42610123251548451","excess_hours":1400.0,"excess_amount":32200.0,"lockNo":"S1","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0},{"slno":187484,"customerName":"Ecec","mobileNo":"4545454545","date_of_open":"Jan 23, 2025","time_of_open":"04:58:26 pm","terminalid":"ORN","no_of_hours":60.0,"amount":1400.0,"status":"payFailPaylater","transactionID":"88170123251658101","excess_hours":1331.0,"excess_amount":30613.0,"lockNo":"S2","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0},{"slno":187485,"customerName":"Xfsf","mobileNo":"8989898989","date_of_open":"Jan 23, 2025","time_of_open":"04:59:09 pm","terminalid":"ORN","no_of_hours":60.0,"amount":2000.0,"status":"payFailPaylater","transactionID":"03790123251658452","excess_hours":1330.0,"excess_amount":43890.0,"lockNo":"M3","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0},{"slno":187486,"customerName":"Rrrr","mobileNo":"2225525252","date_of_open":"Jan 24, 2025","time_of_open":"02:57:12 pm","terminalid":"ORN","no_of_hours":60.0,"amount":1400.0,"status":"payFailPaylater","transactionID":"66120124251456541","excess_hours":12.0,"excess_amount":276.0,"lockNo":"S5","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0}]',
+    '[{"slno":187482,"customerName":"bharat","mobileNo":"2222222222","date_of_open":"Jan 23, 2025","time_of_open":"03:49:02 pm","terminalid":"ORN","no_of_hours":60.0,"amount":1400.0,"status":"paymentSuccess","transactionID":"42610123251548451","excess_hours":1400.0,"excess_amount":32200.0,"lockNo":"S1","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0}' +
+    ',{"slno":187484,"customerName":"Ecec","mobileNo":"4545454545","date_of_open":"Jan 23, 2025","time_of_open":"04:58:26 pm","terminalid":"ORN","no_of_hours":60.0,"amount":1400.0,"status":"payFailPaylater","transactionID":"88170123251658101","excess_hours":1331.0,"excess_amount":30613.0,"lockNo":"S2","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0}' +
+    ',{"slno":187485,"customerName":"Xfsf","mobileNo":"8989898989","date_of_open":"Jan 23, 2025","time_of_open":"04:59:09 pm","terminalid":"ORN","no_of_hours":60.0,"amount":2000.0,"status":"payFailPaylater","transactionID":"03790123251658452","excess_hours":1330.0,"excess_amount":43890.0,"lockNo":"M3","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0}' +
+    ',{"slno":187486,"customerName":"Rrrr","mobileNo":"2225525252","date_of_open":"Jan 24, 2025","time_of_open":"02:57:12 pm","terminalid":"ORN","no_of_hours":60.0,"amount":1400.0,"status":"payFailPaylater","transactionID":"66120124251456541","excess_hours":12.0,"excess_amount":276.0,"lockNo":"S5","passcode":"1111","balance":0,"itemsStored":"Helmet","browtype":"terminal","partretamount":0}]',
 };
 
 const followupOperationTypes = [
@@ -120,8 +123,7 @@ class FollowupCustomers extends Component {
       auth.accessType
     ).catch((err) => {
       if (payload.PacketType === "GET-TD") {
-
-        alert("error: transaction details follow-up")
+        alert("error: transaction details follow-up");
 
         this.setState((prev) => ({
           ...prev,
@@ -131,14 +133,14 @@ class FollowupCustomers extends Component {
       } else if (payload.PacketType === "GET-FOLLOW-BY-DATE") {
         // console.log("here inside GET-FOLLO");
 
-        alert("error: fetching follow-up data")
+        alert("error: fetching follow-up data");
 
         this.setState((prev) => ({
           ...prev,
           followUpCustomers: [],
           Auth: !prev.Auth && prev.Auth !== "" && auth,
           dateSelected: payload.selectedDate,
-          isDateWrong:false
+          isDateWrong: false,
         }));
       }
       console.log("err : " + err);
@@ -172,13 +174,12 @@ class FollowupCustomers extends Component {
             followUpCustomers: followupCustomers,
             Auth: !prev.Auth && prev.Auth !== "" && auth,
             dateSelected: payload.selectedDate,
-            isDateWrong:false
+            isDateWrong: false,
           }));
         }
       } else {
         if (payload.PacketType === "GET-TD") {
-
-          alert("Note: Nothing on transaction details to follow-up")
+          alert("Note: Nothing on transaction details to follow-up");
           this.setState((prev) => ({
             ...prev,
             TransactionDetails: [],
@@ -186,13 +187,13 @@ class FollowupCustomers extends Component {
           }));
         } else if (payload.PacketType === "GET-FOLLOW-BY-DATE") {
           // console.log("here inside GET-FOLLO");
-          alert("Note: No follow-up details on selected-date")
+          alert("Note: No follow-up details on selected-date");
           this.setState((prev) => ({
             ...prev,
             followUpCustomers: [],
             Auth: !prev.Auth && prev.Auth !== "" && auth,
             dateSelected: payload.selectedDate,
-            isDateWrong:false
+            isDateWrong: false,
           }));
         }
       }
@@ -200,7 +201,7 @@ class FollowupCustomers extends Component {
       // console.log(result);
 
       if (payload.PacketType === "GET-TD") {
-        alert("error: transaction details follow-up")
+        alert("error: transaction details follow-up");
         this.setState((prev) => ({
           ...prev,
           TransactionDetails: [],
@@ -208,14 +209,14 @@ class FollowupCustomers extends Component {
         }));
       } else if (payload.PacketType === "GET-FOLLOW-BY-DATE") {
         // console.log("here inside GET-FOLLO");
-        alert("error: fetching follow-up data")
+        alert("error: fetching follow-up data");
 
         this.setState((prev) => ({
           ...prev,
           followUpCustomers: [],
           Auth: !prev.Auth && prev.Auth !== "" && auth,
           dateSelected: payload.selectedDate,
-          isDateWrong:false
+          isDateWrong: false,
         }));
       }
     }
@@ -445,9 +446,11 @@ class FollowupCustomers extends Component {
             tablerows={TransactionDetails}
           />
         ) : (
-          <h4 className="follow-up-no-content"> No data found on TRANSACTION-DETAILS to follow-up</h4>
+          <h4 className="follow-up-no-content">
+            {" "}
+            No data found on TRANSACTION-DETAILS to follow-up
+          </h4>
         )}
-
 
         <hr />
 
@@ -482,7 +485,10 @@ class FollowupCustomers extends Component {
               tablerows={followUpCustomers}
             />
           ) : (
-            <h4 className="follow-up-no-content"> No data found on follow-up details for selected date</h4>
+            <h4 className="follow-up-no-content">
+              {" "}
+              No data found on follow-up details for selected date
+            </h4>
           )}
         </div>
 

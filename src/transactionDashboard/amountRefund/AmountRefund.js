@@ -23,7 +23,7 @@ import Collapse from "@mui/material/Collapse";
 import PathUrl from "../../GlobalVariable/urlPath.json";
 import DashBoardOperationItems from "../../mainDashBoard/dashboardCards/DashBoardOperationItems";
 import { useLogDetails } from "../../utils/UserLogDetails";
-import PaymentIcon from '@mui/icons-material/Payment';
+import PaymentIcon from "@mui/icons-material/Payment";
 import { useAuth } from "../../utils/Auth";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -36,7 +36,6 @@ const AmountRefund = (props) => {
       type: "Store",
       mobileNumber: "",
       dateOfTransaction: "",
-      
     });
 
   const [itemsForRefund, setItemsForRefund] = useState({
@@ -48,7 +47,7 @@ const AmountRefund = (props) => {
     userName: "",
     // excessPayId: "",
     dateOfPayment: "",
-    enteredAmount: ""
+    enteredAmount: "",
   });
 
   const [state, setState] = useState({
@@ -63,7 +62,7 @@ const AmountRefund = (props) => {
     excessAmount: "",
   });
 
-  const useLogDetials = useLogDetails()
+  const useLogDetials = useLogDetails();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +72,7 @@ const AmountRefund = (props) => {
 
   const [isRepayError, setIsRepayError] = useState(false);
   const [isRepaySuccess, setIsRepaySuccess] = useState(false);
-  const [isRepayWarning, setIsRepayWarning]  = useState(false)
+  const [isRepayWarning, setIsRepayWarning] = useState(false);
 
   const [transactionDetails, setTransactionDetails] = useState({
     slno: [],
@@ -88,21 +87,21 @@ const AmountRefund = (props) => {
     noOfHours: [],
     status: [],
     excessAmount: [],
-    isTransactionActive:[]
+    isTransactionActive: [],
   });
 
   const [tdTableView, setTdTableView] = useState(false);
 
   useEffect(() => {
-    if(Object.keys(props.refundObj).length > 0) {
+    if (Object.keys(props.refundObj).length > 0) {
       setItemsToGetTransactionDetials({
         ...itemsToGetTransactionDetials,
         dateOfTransaction: props.refundObj.dateOfTransactionOpen,
         mobileNumber: props.refundObj.mobileNo,
-        type: props.refundObj.type
-      })
+        type: props.refundObj.type,
+      });
     }
-  }, [])
+  }, []);
 
   const changeEventHandler = (e) => {
     e.preventDefault();
@@ -122,7 +121,7 @@ const AmountRefund = (props) => {
     }
   };
 
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   // const urlPath =
   //   "http://192.168.0.198:8080/AuroAutoLocker//TransactionRefundHandler";
@@ -160,7 +159,7 @@ const AmountRefund = (props) => {
             lockerNo: data.lockNo,
             excessPayId: data.excessPayId,
             excessAmount: data.excessAmount,
-            isTransactionActive: data.activeTransaction
+            isTransactionActive: data.activeTransaction,
           });
           setTdTableView(true);
           setIsLoading(false);
@@ -221,8 +220,7 @@ const AmountRefund = (props) => {
       // excessAmount: Math.floor(excessAmount / 100),
 
       amount: amount,
-      excessAmount: excessAmount
-
+      excessAmount: excessAmount,
     });
   };
 
@@ -231,7 +229,7 @@ const AmountRefund = (props) => {
     e.preventDefault();
     // console.log("--"+itemsForRefund.paymentId !== null);
 
-    if (itemsForRefund.paymentId !== null){
+    if (itemsForRefund.paymentId !== null) {
       fetch(Auth.serverPaths.localAdminPath + "TransactionRefundHandler", {
         method: "POST",
         headers: {
@@ -246,16 +244,19 @@ const AmountRefund = (props) => {
             setItemsForRefund({
               ...itemsForRefund,
               enteredAmount: "",
-              itemsForRefund:""
+              itemsForRefund: "",
             });
-  
+
             const userLogsObj = {
               eventType: "refundAmount",
-              remarks: itemsForRefund.enteredAmount+" amount is refunded to "+itemsForRefund.mobileNo
-            }
-  
+              remarks:
+                itemsForRefund.enteredAmount +
+                " amount is refunded to " +
+                itemsForRefund.mobileNo,
+            };
+
             useLogDetials.storeUserLogs(userLogsObj);
-            
+
             setIsLoading(false);
             setIsDailogueOpen(false);
             setInvalidAmount(true);
@@ -275,15 +276,13 @@ const AmountRefund = (props) => {
               noOfHours: [],
               status: [],
               excessAmount: [],
-              isTransactionActive:[]
-            })
-
-            
+              isTransactionActive: [],
+            });
           } else {
             setItemsForRefund({
               ...itemsForRefund,
               enteredAmount: "",
-              itemsForRefund:""
+              itemsForRefund: "",
             });
             setIsLoading(false);
             setIsRepayError(true);
@@ -299,15 +298,15 @@ const AmountRefund = (props) => {
           console.log("err : " + err);
         });
     } else {
-      setIsLoading(false)
+      setIsLoading(false);
       setIsDailogueOpen(false);
-      setIsRepayWarning(true)
+      setIsRepayWarning(true);
     }
   };
 
   const openRefundAmountWin = () => {
     setIsDailogueOpen(true);
-    handleClose()
+    handleClose();
   };
 
   const closeDailogueWindFun = () => {
@@ -353,7 +352,7 @@ const AmountRefund = (props) => {
 
   const closeWarningAlert = () => {
     setIsRepayWarning(false);
-  }
+  };
   return (
     <div className="amount-refund-container">
       {/* <div className="container-items">
@@ -363,68 +362,65 @@ const AmountRefund = (props) => {
       <h2 className="page-header">Refund Window !!</h2>
 
       <div className="refund-amount-wind">
-
-      <Box sx={{ width: "100%" }}>
-        <Snackbar
-          anchorOrigin={{ vertical, horizontal }}
-          open={isRepayWarning}
-          autoHideDuration={6000}
-          onClose={() => {
-            closeWarningAlert();
-          }}
-        >
-          <Alert
+        <Box sx={{ width: "100%" }}>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={isRepayWarning}
+            autoHideDuration={6000}
             onClose={() => {
               closeWarningAlert();
             }}
-            severity="warning"
           >
-            Payment ID is not Found !!
-          </Alert>
-        </Snackbar>
-      </Box>
+            <Alert
+              onClose={() => {
+                closeWarningAlert();
+              }}
+              severity="warning"
+            >
+              Payment ID is not Found !!
+            </Alert>
+          </Snackbar>
+        </Box>
 
-      <Box sx={{ width: "100%" }}>
-        <Snackbar
-
-        
-          anchorOrigin={{ vertical, horizontal }}
-          open={isRepayError}
-          autoHideDuration={6000}
-          onClose={() => {
-            closeErrorAlert();
-          }}
-        >
-          <Alert
+        <Box sx={{ width: "100%" }}>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={isRepayError}
+            autoHideDuration={6000}
             onClose={() => {
               closeErrorAlert();
             }}
-            severity="error"
           >
-            refund failed — check it out!
-          </Alert>
-        </Snackbar>
-      </Box>
+            <Alert
+              onClose={() => {
+                closeErrorAlert();
+              }}
+              severity="error"
+            >
+              refund failed — check it out!
+            </Alert>
+          </Snackbar>
+        </Box>
 
-      <Box sx={{ width: "100%" }}>
-        <Snackbar
-          anchorOrigin={{ vertical, horizontal }}
-          open={isRepaySuccess}
-          autoHideDuration={6000}
-          onClose={() => {
-            closeSuccessAlert();
-          }}
-        >
-          <Alert
+        <Box sx={{ width: "100%" }}>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={isRepaySuccess}
+            autoHideDuration={6000}
             onClose={() => {
               closeSuccessAlert();
             }}
-            severity="success"
           >
-            refund initiated successfully
-          </Alert>
-        </Snackbar>
-      </Box>
+            <Alert
+              onClose={() => {
+                closeSuccessAlert();
+              }}
+              severity="success"
+            >
+              refund initiated successfully
+            </Alert>
+          </Snackbar>
+        </Box>
 
         {/* <Stack sx={{ width: "100%" }} spacing={2}>
           <Collapse in={isRepayError}>
@@ -540,7 +536,6 @@ const AmountRefund = (props) => {
               }}
               onSubmit={(e) => submitRefundAmountFun(e)}
             >
-            
               <div className="textfield-container">
                 <TextField
                   error={invalidAmount}
@@ -598,7 +593,6 @@ const AmountRefund = (props) => {
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
-        // onClick={() => c}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

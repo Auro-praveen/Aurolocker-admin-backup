@@ -1,6 +1,6 @@
 import LoginMainPage from "./loginPage/LoginMainPage";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import AvailableLockers from "./dashboardAvailableLockers/AvailableLockers";
 import LockerDashBoardComp from "./dashboard/dashboardComp";
@@ -34,9 +34,17 @@ import Malfun from "./lockerOperations/malfunctionLockers/Malfun";
 import TestingHere from "./charts/TestingHere";
 import HandleDataHere from "./toxlsheet/HandleDataHere";
 import CommonLayoutForAll from "./lockerOperations/layoutsAccorsingTerminalId/CommonLayoutForAll";
+import { encryptAES } from "./GlobalVariable/GlobalModule";
 
 function App() {
   function someFunctionToBind(some) {}
+
+  useEffect(() => {
+    // const prices = [100, 200, 300, 500, 600]
+    // const totAmountToSpend = 700
+    // testFunction(prices, totAmountToSpend);
+    // testFunction()
+  }, []);
 
   return (
     //in app component wrap the entire component tree with AuthProvider
@@ -192,7 +200,7 @@ function App() {
                 path="/layout-test"
                 element={
                   <CommonLayoutForAll
-                    terminalID={"AHCEBGF"}
+                    terminalID={"LULBLRNM"}
                     isMalfunction={false}
                     lockersInUse={[]}
                     userSelectedLock={[]}

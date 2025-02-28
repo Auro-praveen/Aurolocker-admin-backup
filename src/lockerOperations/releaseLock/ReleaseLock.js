@@ -56,6 +56,8 @@ import AHCEBGFlayout from "../layoutsAccorsingTerminalId/AHCEBGFlayout";
 import AHCEB2Flayout from "../layoutsAccorsingTerminalId/AHCEB2Flayout";
 import LULUHYDUGlayout from "../layoutsAccorsingTerminalId/LULUHYDUGlayout";
 import CommonLayoutForAll from "../layoutsAccorsingTerminalId/CommonLayoutForAll";
+import StateWiseFormSelection from "../../GlobalVariable/StateWiseFormSelection";
+import { commonApiForGetConenction } from "../../GlobalVariable/GlobalModule";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
@@ -111,7 +113,7 @@ const ReleaseLock = (props) => {
   // asking admin wheather releaselock or uncondtionally open lock
 
   useEffect(() => {
-    getTerminalIdsOfTransactionDetails();
+    // getTerminalIdsOfTransactionDetails();
   }, []);
 
   // useEffect(() => {
@@ -349,6 +351,43 @@ const ReleaseLock = (props) => {
     }
   };
 
+  const handleStateName = (stateName) => {
+    // setStateName(stateName);
+    getStatewiseTerminals(stateName);
+  };
+
+  const getStatewiseTerminals = async (stateName) => {
+    setLoading(true);
+    const terminalIds = await commonApiForGetConenction(
+      Auth.serverPaths.localAdminPath +
+        "FetchStates?value=" +
+        stateName +
+        "&type=ACTIVE"
+    );
+
+    const terminalIdArr = await terminalIds.terminals;
+    setTdTerminalIds(terminalIdArr);
+
+    if (terminalIdArr.length > 0) {
+      const termIdRes = terminalIdArr[0].split(",");
+
+      const termId = termIdRes[1].replace(/\s+/g, "").trim();
+      setSelectedTerminalID(terminalIdArr[0]);
+
+      setReleaseLockObject({
+        ...releaseLockObject,
+        terminalID: termId,
+      });
+
+      if (terminalIdArr[0]) {
+        getInProgressLocks(termId);
+      }
+
+      // lockerStatusFunction(termId);
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="release-lock-container">
       <h2 className="page-title">Release Lock</h2>
@@ -415,6 +454,13 @@ const ReleaseLock = (props) => {
                     </option>
                   ))}
                 </NativeSelect> */}
+
+                <StateWiseFormSelection
+                  appSwitchedTo={""}
+                  onStateChangeCallback={(stateName) =>
+                    handleStateName(stateName)
+                  }
+                />
 
                 <Autocomplete
                   disablePortal

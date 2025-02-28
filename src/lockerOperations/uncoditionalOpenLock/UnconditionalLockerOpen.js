@@ -36,6 +36,7 @@ import MMBLR1Layout from "../layoutsAccorsingTerminalId/MMBLR1Layout";
 import ORN2Layout from "../layoutsAccorsingTerminalId/ORN2Layout";
 
 import {
+  commonApiForGetConenction,
   decryptAES,
   encryptAES,
   lockopenMobileNumber,
@@ -61,6 +62,7 @@ import AHCEB2Flayout from "../layoutsAccorsingTerminalId/AHCEB2Flayout";
 import LULUHYDUGlayout from "../layoutsAccorsingTerminalId/LULUHYDUGlayout";
 import CommonLayoutForAll from "../layoutsAccorsingTerminalId/CommonLayoutForAll";
 import { useAuth } from "../../utils/Auth";
+import StateWiseFormSelection from "../../GlobalVariable/StateWiseFormSelection";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
@@ -90,6 +92,7 @@ const UnconditionalLockerOpen = (props) => {
   const [lockerWarning, setLockerWarning] = useState(false);
   const [mobileNumberWarning, setMobileNumberWarning] = useState(false);
   const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
+  // const [stateName, setStateName] = useState("")
 
   const [state, setState] = useState({
     vertical: "top",
@@ -111,7 +114,7 @@ const UnconditionalLockerOpen = (props) => {
   // changed after
 
   useEffect(() => {
-    getTerminalIdsOfTransactionDetails();
+    // getTerminalIdsOfTransactionDetails();
   }, []);
 
   // useEffect(() => {
@@ -154,7 +157,6 @@ const UnconditionalLockerOpen = (props) => {
   // to get all ther terminalids from the present transaction details
 
   const openLockViaSms = (openLockViaSmsObj) => {
-    
     fetch(Auth.serverPaths.localAdminPath + "LockerOperationViaSms", {
       method: "POST",
       headers: {
@@ -215,11 +217,11 @@ const UnconditionalLockerOpen = (props) => {
             break;
 
           case "STATION-LOCKERS":
-            path = urlPath.serverUrlUNCLOCKMALL;
+            path = urlPath.serverUrlUNCLOCKSTATION;
             break;
 
           case "TEMPLE-LOCKERS":
-            path = urlPath.serverUrlUNCLOCKMALL;
+            path = urlPath.serverUrlUNCLOCKTEMPLE;
             break;
 
           default:
@@ -239,13 +241,18 @@ const UnconditionalLockerOpen = (props) => {
           .then((resp) => {
             console.log("unconditional lockers");
 
-            console.log(resp);
+            const responseText = resp.text();
 
-            const decrypt = decryptAES(resp);
+            console.log(responseText);
 
-            return JSON.parse(decrypt);
+            return responseText;
           })
-          .then((data) => {
+          .then((response) => {
+            console.log("data here inside unconditional open lockkk");
+            console.log(response);
+            const data = JSON.parse(decryptAES(response));
+            console.log(data.responseCode);
+
             console.log(data);
             if (data.responseCode === "REQAC-200") {
               storeUncoditionalOpenLocks();
@@ -459,6 +466,40 @@ const UnconditionalLockerOpen = (props) => {
     }
   };
 
+  const handleStateName = (stateName) => {
+    // setStateName(stateName);
+    getStatewiseTerminals(stateName);
+  };
+
+  const getStatewiseTerminals = async (stateName) => {
+    setLoading(true);
+    const terminalIds = await commonApiForGetConenction(
+      Auth.serverPaths.localAdminPath +
+        "FetchStates?value=" +
+        stateName +
+        "&type=ACTIVE"
+    );
+
+    const terminalIdArr = await terminalIds.terminals;
+    setTdTerminalIds(terminalIdArr);
+
+    if (terminalIdArr.length > 0) {
+      const termIdRes = terminalIdArr[0].split(",");
+
+      const termId = termIdRes[1].replace(/\s+/g, "").trim();
+      setSelectedTerminalID(terminalIdArr[0]);
+      if (terminalIdArr[0]) {
+        setUnconditionalLockObject({
+          ...unconditionalLockObject,
+          terminalID: termId,
+        });
+      }
+
+      // lockerStatusFunction(termId);
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="release-lock-container">
       <h2 className="page-title">
@@ -577,6 +618,11 @@ const UnconditionalLockerOpen = (props) => {
                 </option>
               ))}
             </NativeSelect> */}
+
+            <StateWiseFormSelection
+              appSwitchedTo={""}
+              onStateChangeCallback={(stateName) => handleStateName(stateName)}
+            />
 
             <Autocomplete
               disablePortal
@@ -1451,7 +1497,7 @@ const UnconditionalLockerOpen = (props) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {unconditionalLockObject.LockerNo + " is Open now"}
+          {`Selected locker is open now`}
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>ok</Button>

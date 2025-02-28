@@ -22,7 +22,114 @@ const Test = () => {
 
   useEffect(() => {
     // getValFunction(Number(0));
+
+    // testFunction();
+    testFunction1([100, 500, 600, 200, 300], 700);
   }, []);
+
+  const testFunction = () => {
+    const prices = [10, 20, 15, 25, 10];
+    const totAmountToSpend = 100;
+
+    // maximum items we can buy from the price index from the money we have
+
+    let spendingAmount = 0;
+    let count = 0;
+    let spendingAmountList = [];
+
+    let prevSpendingAmount = 0;
+    let prevCount = 0;
+    let prevSpendingAmountList = [];
+
+    prices.sort();
+
+    console.log(prices);
+
+    if (prices.length > 0) {
+      for (let i = 0; i < prices.length; i++) {
+        for (let j = i; j < prices.length; j++) {
+          if (spendingAmount + prices[j] <= totAmountToSpend) {
+            if (j === prices.length) {
+              for (let k = 0; k < i; k++) {
+                count++;
+                spendingAmount += prices[j];
+                spendingAmountList.push(prices[j]);
+              }
+            } else {
+              count++;
+              spendingAmount += prices[j];
+              spendingAmountList.push(prices[j]);
+            }
+          } else {
+            break;
+          }
+        }
+
+        console.log(i);
+        console.log("Count : " + count);
+
+        if (prevCount < count) {
+          prevCount = count;
+          prevSpendingAmount = spendingAmount;
+          prevSpendingAmountList = spendingAmountList;
+        }
+
+        count = 0;
+        spendingAmount = 0;
+        spendingAmountList = [];
+      }
+    }
+
+    if (prevCount === prices.length) {
+      console.log(prevCount);
+      console.log(prevSpendingAmount);
+      console.log(prevSpendingAmountList);
+
+      console.log("you can buy all the items : " + prevCount);
+    } else if (prevCount > 0) {
+      console.log(prevCount);
+      console.log(prevSpendingAmount);
+      console.log(prevSpendingAmountList);
+
+      console.log("you can buy total : " + prevCount + " items");
+    } else {
+      console.log(prevCount);
+      console.log(prevSpendingAmount);
+      console.log(prevSpendingAmountList);
+
+      console.log("you can't buy any items");
+    }
+  };
+
+  const testFunction1 = (prices, totAmountToSpend) => {
+    prices.sort((a, b) => a - b);
+
+    let spendingAmount = 0;
+    let count = 0;
+    let spendingAmountList = [];
+
+    for (let price of prices) {
+      if (spendingAmount + price <= totAmountToSpend) {
+        spendingAmount += price;
+        count++;
+        spendingAmountList.push(price);
+      } else {
+        break; // Stop if we can't afford the next item
+      }
+    }
+
+    console.log(`Total items bought: ${count}`);
+    console.log(`Total amount spent: ${spendingAmount}`);
+    console.log(`Items bought: ${spendingAmountList}`);
+
+    if (count === prices.length) {
+      console.log(`You can buy all the items: ${count}`);
+    } else if (count > 0) {
+      console.log(`You can buy total: ${count} items`);
+    } else {
+      console.log("You can't buy any items");
+    }
+  };
 
   const getValFunction = (num) => {
     fetch(url, {
@@ -201,9 +308,6 @@ const Test = () => {
   };
 
   const securityOperations = (type) => {
-
-
-
     if (type === "ENCRYPT") {
       const obj = {
         name: "praveen",
@@ -218,19 +322,16 @@ const Test = () => {
       }
 
       console.log(result);
-      
     } else {
       const result = decryptAES(data);
-      JSON.parse(result)
+      JSON.parse(result);
       if (result) {
-        setDate(result)
+        setDate(result);
       } else {
-        setDate("")
+        setDate("");
       }
       console.log(result);
     }
-    
-
   };
 
   // ans = [132962.77,  149463.66, 158574.19]

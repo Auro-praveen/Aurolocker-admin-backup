@@ -59,6 +59,7 @@ function LoginMainPage() {
     });
   }, []);
 
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -354,6 +355,7 @@ function LoginMainPage() {
           </DialogActions>
         </Dialog>
       </div>
+
     </div>
   );
 }

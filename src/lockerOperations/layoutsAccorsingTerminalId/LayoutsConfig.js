@@ -3,7 +3,6 @@ import dynamicLockerLayout from "../../GlobalVariable/dynamicLockerLayout.json";
 import "./layoutdesign.css";
 
 const LayoutsConfig = (props) => {
-  
   const [lockerLaypos, setLockerLaypos] = useState([]);
   const [clickedButton, setClickedButton] = useState(null);
 
