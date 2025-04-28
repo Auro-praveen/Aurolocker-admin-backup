@@ -18,6 +18,16 @@
     color: #6e3b68;
 }
 
+.follow-up-filters {
+    margin: 12px;
+    text-align: center;
+}
+
+.selected-filter-type-btn{
+    background-color: #427a6b !important;
+    color: #fff !important;
+}
+
 .follow-up-details{
     
 }

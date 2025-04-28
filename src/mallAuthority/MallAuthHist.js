@@ -60,6 +60,19 @@ const MallAuthHist = (props) => {
     Total_Amount: "",
   });
 
+  const [amountRecDetHistory, setAmountRecDetHistory] = useState({
+    slno: "",
+    customerName: "",
+    terminalID: "",
+    lockerNumbers: "",
+    closingDate: "",
+    closingTime: "",
+    amount: "",
+    CGST: "",
+    SGST: "",
+    Total_Amount: "",
+  });
+
   // const [openXlDownload, setOpenXlDownload] = useState(true);
 
   useEffect(() => {
@@ -135,9 +148,11 @@ const MallAuthHist = (props) => {
       };
     }
 
-    // fetching details from invoice details june 2024 FetchHistoryForMallAuth
+    // fetching details from invoice details june 2024 FetchHistoryForMallAuth   mall-autority-hist
 
-    fetch(PathUrl.localServerPath + "FetchHistoryForMallAuthFromInvoice", {
+    // fetch(PathUrl.localServerPath + "FetchHistoryForMallAuthFromInvoice", {
+
+    fetch(PathUrl.localServerPath + "mall-autority-hist", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -148,24 +163,18 @@ const MallAuthHist = (props) => {
       .then((data) => {
         console.log(data);
         if (data.responseCode === "tdhist-200") {
-          setMallAuthTdHistory({
-            ...mallAuthTdHistory,
+          setAmountRecDetHistory({
+            ...amountRecDetHistory,
             slno: data.slno,
             // dateOfOpen: data.dateOfTransaction,
             // timeOfOpen: data.timeOfTransaction,
             terminalID: data.terminalID,
             lockerNumbers: data.lockers,
-            noOfHours_in_mins: data.noOfHours,
             customerName: data.custName,
             // stored_item: data.itemStored,
             closingDate: data.closing_date,
             closingTime: data.closingTime,
-            excess_hour_in_mins: data.excess_hour,
-            excess_amount: data.excess_amount,
             amount: data.amount,
-            balance: data.balance,
-            partRetreiveAmount: data.partRetAmount,
-            Totmount_excludingGST: data.totAmntExcludingGST,
             CGST: data.CGST,
             SGST: data.SGST,
             Total_Amount: data.totAmntIncludingGST,
@@ -173,46 +182,34 @@ const MallAuthHist = (props) => {
           setIsLoading(false);
         } else if (data.responseCode === "tdhist-202") {
           alert("no terminalId in Site registtration");
-          setMallAuthTdHistory({
+          setAmountRecDetHistory({
             slno: "",
             customerName: "",
             // dateOfOpen: "",
             // timeOfOpen: "",
             terminalID: "",
-            noOfHours_in_mins: "",
             lockerNumbers: "",
             // stored_item: "",
             closingDate: "",
             closingTime: "",
-            excess_hour_in_mins: "",
-            excess_amount: "",
             amount: "",
-            balance: "",
-            partRetreiveAmount: "",
-            Totmount_excludingGST: "",
             CGST: "",
             SGST: "",
             Total_Amount: "",
           });
           setIsLoading(false);
         } else {
-          setMallAuthTdHistory({
+          setAmountRecDetHistory({
             slno: "",
             customerName: "",
             // dateOfOpen: "",
             // timeOfOpen: "",
             terminalID: "",
-            noOfHours_in_mins: "",
             lockerNumbers: "",
             // stored_item: "",
             closingDate: "",
             closingTime: "",
-            excess_hour_in_mins: "",
-            excess_amount: "",
             amount: "",
-            balance: "",
-            partRetreiveAmount: "",
-            Totmount_excludingGST: "",
             CGST: "",
             SGST: "",
             Total_Amount: "",
@@ -324,11 +321,14 @@ const MallAuthHist = (props) => {
       </div>
 
 
-      {mallAuthTdHistory.slno ? (
+      {amountRecDetHistory.slno ? (
         <LockerCatagoryTable
           // DownloadAsXl = {true}
-          tableData={mallAuthTdHistory}
-          tableType={"mallAuthHist"}
+          // tableData={mallAuthTdHistory}
+          // tableType={"mallAuthHist"}
+
+          tableData={amountRecDetHistory}
+          tableType={"mallAuthHist-AMNTREC"}
         />
       ) : (
         <p>No Data present</p>

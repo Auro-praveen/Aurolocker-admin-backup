@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/Auth";
 import { useLogDetails } from "../utils/UserLogDetails";
 
-import Avatar from "@mui/material/Avatar"; //mater
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -58,7 +58,6 @@ function LoginMainPage() {
       return (e.returnValue = "Are you sure you want to exit?");
     });
   }, []);
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -355,7 +354,6 @@ function LoginMainPage() {
           </DialogActions>
         </Dialog>
       </div>
-
     </div>
   );
 }

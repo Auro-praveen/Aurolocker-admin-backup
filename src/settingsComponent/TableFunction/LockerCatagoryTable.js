@@ -691,12 +691,81 @@ const LockerCatagoryTable = (props) => {
           </tr>
         </>
       );
+    } else if (tableType === "mallAuthHist-AMNTREC") {
+      return (
+        <>
+          {jsonArrayTableValues.map((tableValues, index) => {
+            return (
+              <>
+                <tr key={index}>
+                  {tableValues.map((tableValue, index) => {
+                    return (
+                      <>
+                        <td className={"td-data"} key={index}>
+                          {tableValue}
+                        </td>
+                      </>
+                    );
+                  })}
+                </tr>
+
+                {updateCalculatingTotalValues(
+                  0,
+                  tableValues[6],
+                  tableValues[9],
+                  tableValues[7],
+                  tableValues[8],
+                  0,
+                  0
+                )}
+              </>
+            );
+          })}
+          <tr className="Total_Calculations">
+            <td>-</td>
+            <td>
+              <b>TOTAL :</b>
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>
+              <b>{amount.current} Rs</b>
+            </td>
+
+            <td>
+              <b>{Math.round(Number(CGST.current) * 100) / 100} Rs</b>
+            </td>
+            <td>
+              <b>{Math.round(Number(SGST.current) * 100) / 100} Rs</b>
+            </td>
+            <td>
+              <b>
+                {Math.round(Number(TotAmountIncldingGST.current) * 100) / 100}{" "}
+                Rs
+              </b>
+            </td>
+          </tr>
+        </>
+      );
     }
   };
 
   return (
     <>
       {tableType === "mallAuthHist" && (
+        <Button
+          variant="outlined"
+          color="inherit"
+          onClick={handleClickOpen}
+          sx={{ mb: "15px", textAlign: "center" }}
+        >
+          Download as Xl Sheet
+        </Button>
+      )}
+
+      {tableType === "mallAuthHist-AMNTREC" && (
         <Button
           variant="outlined"
           color="inherit"
@@ -737,7 +806,8 @@ const LockerCatagoryTable = (props) => {
                 tableType === "partiallocks" ||
                 // tableType === "users" ||
                 tableType === "mallAuthHist" ||
-                tableType === "SITE_TABLE"  ||
+                tableType === "mallAuthHist-AMNTREC" ||
+                tableType === "SITE_TABLE" ||
                 tableType === "refundhistory" ? (
                 Object.keys(jsonData).map((tableHeader) => {
                   return (

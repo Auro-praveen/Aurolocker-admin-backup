@@ -35,6 +35,7 @@ import TestingHere from "./charts/TestingHere";
 import HandleDataHere from "./toxlsheet/HandleDataHere";
 import CommonLayoutForAll from "./lockerOperations/layoutsAccorsingTerminalId/CommonLayoutForAll";
 import { encryptAES } from "./GlobalVariable/GlobalModule";
+import CommonTempleLayouts from "./lockerOperations/temple_layouts/CommonTempleLayouts";
 
 function App() {
   function someFunctionToBind(some) {}
@@ -43,8 +44,36 @@ function App() {
     // const prices = [100, 200, 300, 500, 600]
     // const totAmountToSpend = 700
     // testFunction(prices, totAmountToSpend);
-    // testFunction()
+    // testFunction([
+    //   ["London", "New York"],
+    //   ["New York", "Washington"],
+    //   ["Washington", "Dubai"],
+    //   ["Dubai", "Bengaluru"],
+    // ]);
   }, []);
+
+  function testFunction(destination) {
+    const [startPoint, endPoint] = destination.reduce(
+      ([a, b], [x, y]) => [
+        [...a, x],
+        [...b, y],
+      ],
+      [[], []]
+    );
+
+    for (const destPoint of endPoint) {
+      let isDestFount = true;
+
+      for (const startPt of startPoint) {
+        if (destPoint === startPt) {
+          isDestFount = false;
+          break;
+        }
+      }
+
+      console.log(isDestFount && destPoint);
+    }
+  }
 
   return (
     //in app component wrap the entire component tree with AuthProvider
@@ -197,10 +226,22 @@ function App() {
               <Route path="test" element={<Test />} />
               <Route path="layouts" element={<LayoutTest />} />
               <Route
-                path="/layout-test"
+                path="layout-test"
                 element={
                   <CommonLayoutForAll
                     terminalID={"LULBLRNM"}
+                    isMalfunction={false}
+                    lockersInUse={[]}
+                    userSelectedLock={[]}
+                    userSelectedLockHandler={someFunctionToBind.bind(this)}
+                  />
+                }
+              />
+              <Route
+                path="layout-temple"
+                element={
+                  <CommonTempleLayouts
+                    terminalID={"G21_B"}
                     isMalfunction={false}
                     lockersInUse={[]}
                     userSelectedLock={[]}

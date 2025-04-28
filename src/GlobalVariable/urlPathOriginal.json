@@ -15,11 +15,11 @@
   "localServerPath": "http://app.tuckit.in:8041/AuroAutoLocker/",
   "stationServerUrl": "http://indrail.tuckit.in:8041/AuroLocker/AuroClientRequest",
   "stationLocalServerPath": "http://indrail.tuckit.in:8041/AuroAutoLocker/",
-  "templeServerUrl": "http://192.168.0.182:8080/AuroTempleLBEngine/AuroClientRequest",
-  "templeLocalServerPath": "http://192.168.0.182:8080/AuroAutoLocker/",
+  "templeLocalServerPath": "https://temple.tuckit.in:8443/AuroTempleLockers/",
+  "templeServerUrl": "https://temple.tuckit.in:8443/AuroTempleLBEngine/AuroClientRequest",
   "serverUrlUNCLOCKMALL": "http://app.tuckit.in:8041/AuroLocker/AdminRequestResp",
   "serverUrlUNCLOCKSTATION": "http://indrail.tuckit.in:8041/AuroLocker/AdminRequestResp",
-  "serverUrlUNCLOCKTEMPLE": "http://192.168.0.182:8080/AuroLocker/AdminRequestResp",
+  "serverUrlUNCLOCKTEMPLE": "https://temple.tuckit.in:8443/AuroLocker/AdminRequestResp",
 
   "serverUrl": "http://192.168.0.186:8080/AuroLocker/AuroClientRequest",
   "localServerPath": "http://192.168.0.186:8080/AuroAutoLocker/",
@@ -30,7 +30,6 @@
   "serverUrlUNCLOCKMALL": "http://192.168.0.186:8080/AuroLocker/AdminRequestResp",
   "serverUrlUNCLOCKSTATION": "http://192.168.0.141:8080/AuroLocker/AdminRequestResp",
   "serverUrlUNCLOCKTEMPLE": "http://192.168.0.182:8080/AuroLocker/AdminRequestResp",
-
 
   "serverUrl": "http://192.168.0.186:8080/AuroLocker/AuroClientRequest",
   "localServerPath": "http://192.168.0.186:8080/AuroAutoLocker/",

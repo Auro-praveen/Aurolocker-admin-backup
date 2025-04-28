@@ -94,8 +94,15 @@ const TransactionOperations = (props) => {
       setIsLossedCustomersSelected(false);
       setIsFollowCustomer(true);
       setIsPartialLockSelected(false);
+    } else if (props.appSwitchedTo === "STATION-LOCKERS") {
+      setIsFailedTransactionSelected(false);
+      setIsTransHistorySelected(false);
+      setModeOfTransactionOperation(false);
+      setIsLossedCustomersSelected(false);
+      setIsFollowCustomer(true);
+      setIsPartialLockSelected(false);
     } else {
-      alert("This feature is applicable only for Mall-Lockers");
+      alert("This feature is not applicable for TEMPLE-LOCKERS");
     }
   };
 

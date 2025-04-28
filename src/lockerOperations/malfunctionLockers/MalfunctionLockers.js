@@ -21,6 +21,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import "./malfunctionLocks.css";
 import CommonLayoutJSON from "../../GlobalVariable/CommonLockersJSON.json";
+import dynamicLockerLayout from "../../GlobalVariable/dynamicLockerLayout.json";
+import DynamicTempleLockers from "../temple_layouts/DynamicTempleLayout.json";
 
 import {
   Autocomplete,
@@ -64,6 +66,7 @@ import CommonLayoutForAll from "../layoutsAccorsingTerminalId/CommonLayoutForAll
 import LULUHYDUGlayout from "../layoutsAccorsingTerminalId/LULUHYDUGlayout";
 import StateWiseFormSelection from "../../GlobalVariable/StateWiseFormSelection";
 import { commonApiForGetConenction } from "../../GlobalVariable/GlobalModule";
+import CommonTempleLayouts from "../temple_layouts/CommonTempleLayouts";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
@@ -191,7 +194,7 @@ const MalfunctionLockers = (props) => {
               terminalID: termId,
             });
 
-            setSubmitBtnHeight(CommonLayoutJSON[termId].noofrows * 100);
+            // setSubmitBtnHeight(CommonLayoutJSON[termId].noofrows * 100);
 
             getMalfunctionLockers(termId);
           }
@@ -439,7 +442,7 @@ const MalfunctionLockers = (props) => {
           terminalID: termId,
         });
 
-        setSubmitBtnHeight(CommonLayoutJSON[termId].noofrows * 100);
+        // setSubmitBtnHeight(CommonLayoutJSON[termId].noofrows * 100);
 
         getMalfunctionLockers(termId);
       }
@@ -1231,16 +1234,85 @@ const MalfunctionLockers = (props) => {
         </>
       ) : (
         <>
-          <CommonLayoutForAll
+          {Auth.accessAppType === "TEMPLE-LOCKERS" ? (
+            <>
+              {" "}
+              {Object.keys(DynamicTempleLockers).includes(
+                malfunctionLocksObj.terminalID
+              ) ? (
+                <>
+                  <CommonTempleLayouts
+                    terminalID={malfunctionLocksObj.terminalID}
+                    isMalfunction={true}
+                    lockersInUse={malfucntionLocks}
+                    userSelectedLock={malfunctionLocksObj.LockerNo}
+                    userSelectedLockHandler={userSelectedLockFun.bind(this)}
+                    malfunctionTypeHandler={malfunctionStatusHandler.bind(this)}
+                  />
+
+                  <div className="releaselock-button-container">
+                    <Button
+                      variant="contained"
+                      color="info"
+                      onClick={() => sendMalfunctionLockoServer()}
+                      fullWidth
+                    >
+                      submit
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <h4 style={{ textAlign: "center" }}>
+                  No suitable layout found for the terminal id:
+                  {malfunctionLocksObj.terminalID}
+                </h4>
+              )}{" "}
+            </>
+          ) : (
+            <>
+              {Object.keys(dynamicLockerLayout).includes(
+                malfunctionLocksObj.terminalID
+              ) ? (
+                <>
+                  <CommonLayoutForAll
+                    terminalID={malfunctionLocksObj.terminalID}
+                    isMalfunction={true}
+                    lockersInUse={malfucntionLocks}
+                    userSelectedLock={malfunctionLocksObj.LockerNo}
+                    userSelectedLockHandler={userSelectedLockFun.bind(this)}
+                    malfunctionTypeHandler={malfunctionStatusHandler.bind(this)}
+                  />
+
+                  <div className="releaselock-button-container">
+                    <Button
+                      variant="contained"
+                      color="info"
+                      onClick={() => sendMalfunctionLockoServer()}
+                      fullWidth
+                    >
+                      submit
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <h4 style={{ textAlign: "center" }}>
+                  No suitable layout found for the terminal id:
+                  {malfunctionLocksObj.terminalID}
+                </h4>
+              )}{" "}
+            </>
+          )}
+
+          {/* <CommonLayoutForAll
             terminalID={malfunctionLocksObj.terminalID}
             isMalfunction={true}
             lockersInUse={malfucntionLocks}
             userSelectedLock={malfunctionLocksObj.LockerNo}
             userSelectedLockHandler={userSelectedLockFun.bind(this)}
             malfunctionTypeHandler={malfunctionStatusHandler.bind(this)}
-          />
+          /> */}
 
-          <div className="releaselock-button-container">
+          {/* <div className="releaselock-button-container">
             <Button
               variant="contained"
               color="info"
@@ -1249,7 +1321,7 @@ const MalfunctionLockers = (props) => {
             >
               submit
             </Button>
-          </div>
+          </div> */}
 
           {/* <p className="text-paragraph">
             No Layout For the Selected Terminal Id Please Select the valid

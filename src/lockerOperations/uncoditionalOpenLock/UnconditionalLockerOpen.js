@@ -18,6 +18,9 @@ import FormControl from "@mui/material/FormControl";
 
 import NativeSelect from "@mui/material/NativeSelect";
 
+import dynamicLockerLayout from "../../GlobalVariable/dynamicLockerLayout.json";
+import DynamicTempleLockers from "../temple_layouts/DynamicTempleLayout.json";
+
 // import Alert from "@mui/material/Alert";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
@@ -63,6 +66,7 @@ import LULUHYDUGlayout from "../layoutsAccorsingTerminalId/LULUHYDUGlayout";
 import CommonLayoutForAll from "../layoutsAccorsingTerminalId/CommonLayoutForAll";
 import { useAuth } from "../../utils/Auth";
 import StateWiseFormSelection from "../../GlobalVariable/StateWiseFormSelection";
+import CommonTempleLayouts from "../temple_layouts/CommonTempleLayouts";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
@@ -210,26 +214,29 @@ const UnconditionalLockerOpen = (props) => {
         console.log(serverObj);
 
         let path;
+        let payload;
 
         switch (Auth.accessAppType) {
           case "MALL-LOCKERS":
             path = urlPath.serverUrlUNCLOCKMALL;
+            payload = encryptAES(JSON.stringify(serverObj));
             break;
 
           case "STATION-LOCKERS":
             path = urlPath.serverUrlUNCLOCKSTATION;
+            payload = encryptAES(JSON.stringify(serverObj));
             break;
 
           case "TEMPLE-LOCKERS":
             path = urlPath.serverUrlUNCLOCKTEMPLE;
+            payload = encryptAES(JSON.stringify(serverObj));
             break;
 
           default:
             path = Auth.serverPaths.serverUrl;
+            payload = JSON.stringify(serverObj);
             break;
         }
-
-        const payload = encryptAES(JSON.stringify(serverObj));
 
         fetch(path, {
           method: "POST",
@@ -1455,14 +1462,82 @@ const UnconditionalLockerOpen = (props) => {
         </>
       ) : (
         <>
-          <CommonLayoutForAll
+          {Auth.accessAppType === "TEMPLE-LOCKERS" ? (
+            <>
+              {" "}
+              {Object.keys(DynamicTempleLockers).includes(
+                unconditionalLockObject.terminalID
+              ) ? (
+                <>
+                  <CommonTempleLayouts
+                    terminalID={unconditionalLockObject.terminalID}
+                    isMalfunction={false}
+                    lockersInUse={[]}
+                    userSelectedLock={unconditionalLockObject.LockerNo}
+                    userSelectedLockHandler={userSelectedLockFun.bind(this)}
+                  />
+                  <div className="releaselock-button-container">
+                    <Button
+                      variant="contained"
+                      color="info"
+                      onClick={() => sendUnconditionLockOpenToServer()}
+                      fullWidth
+                    >
+                      submit
+                    </Button>
+                  </div>{" "}
+                </>
+              ) : (
+                <h4 style={{ textAlign: "center" }}>
+                  No suitable layout found for the terminal id: 
+                  {unconditionalLockObject.terminalID}
+                </h4>
+              )}{" "}
+            </>
+          ) : (
+            <>
+              {" "}
+              {Object.keys(dynamicLockerLayout).includes(
+                unconditionalLockObject.terminalID
+              ) ? (
+                <>
+                  {" "}
+                  <CommonLayoutForAll
+                    terminalID={unconditionalLockObject.terminalID}
+                    isMalfunction={false}
+                    lockersInUse={[]}
+                    userSelectedLock={unconditionalLockObject.LockerNo}
+                    userSelectedLockHandler={userSelectedLockFun.bind(this)}
+                  />
+                  <div className="releaselock-button-container">
+                    <Button
+                      variant="contained"
+                      color="info"
+                      onClick={() => sendUnconditionLockOpenToServer()}
+                      fullWidth
+                    >
+                      submit
+                    </Button>
+                  </div>{" "}
+                </>
+              ) : (
+                <h4 style={{ textAlign: "center" }}>
+                  No suitable layout found for the terminal id:{" "}
+                  {unconditionalLockObject.terminalID}
+                </h4>
+              )}{" "}
+            </>
+          )}
+
+          {/* <CommonLayoutForAll
             terminalID={unconditionalLockObject.terminalID}
             isMalfunction={false}
             lockersInUse={[]}
             userSelectedLock={unconditionalLockObject.LockerNo}
             userSelectedLockHandler={userSelectedLockFun.bind(this)}
-          />
-          <div className="releaselock-button-container">
+          /> */}
+
+          {/* <div className="releaselock-button-container">
             <Button
               variant="contained"
               color="info"
@@ -1471,7 +1546,7 @@ const UnconditionalLockerOpen = (props) => {
             >
               submit
             </Button>
-          </div>
+          </div> */}
           {/* <p className="text-paragraph">
           No Layout For the Selected Terminal Id Please Select the valid
           Terminal Id

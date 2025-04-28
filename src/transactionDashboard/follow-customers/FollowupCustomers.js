@@ -1,4 +1,5 @@
 import {
+  ButtonGroup,
   FormControl,
   InputLabel,
   MenuItem,
@@ -23,7 +24,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import FolloupcusomterModel from "./models/FollowupCustomer";
 import "./followup.css";
-
+import { exportToExcel } from "react-json-to-excel";
 const data = {
   response: 200,
   tdDetails:
@@ -39,6 +40,8 @@ const followupOperationTypes = [
   "CANCEL-BOOKING",
   "OTHER",
 ];
+
+const filterButtons = ["ALL", "EXCESS-AMOUNT", "PAYLATER", "PARTIAL-OPEN"];
 
 class FollowupCustomers extends Component {
   constructor(props) {
@@ -64,6 +67,7 @@ class FollowupCustomers extends Component {
       browtype: "",
     },
     TransactionDetails: [],
+    filterTransactionDetails: [],
     Auth: "",
     customerFollowupDetails: {},
     eventTriggered: false,
@@ -73,6 +77,7 @@ class FollowupCustomers extends Component {
     selectedFollowupCustomer: {},
     dateSelected: getCurrentDateSQL(),
     isDateWrong: false,
+    selectedFilterType: "ALL",
     followCustomerEnteredDetails: {
       remarks: "",
       type: followupOperationTypes[0],
@@ -408,6 +413,54 @@ class FollowupCustomers extends Component {
     }
   };
 
+  handleFilterButton = (filterType) => {
+    if (this.state.selectedFilterType !== filterType) {
+      this.handleTransactionDetailsFilter(filterType);
+    }
+  };
+
+  handleTransactionDetailsFilter = (filterType) => {
+    let filteredTD = [];
+    switch (filterType) {
+      case "EXCESS-AMOUNT":
+        filteredTD = this.state.TransactionDetails.filter(
+          (td) => td.excess_amount > 0
+        );
+
+        break;
+
+      case "PAYLATER":
+        filteredTD = this.state.TransactionDetails.filter(
+          (td) => td.status === "payFailPaylater"
+        );
+
+        break;
+
+      case "PARTIAL-OPEN":
+        filteredTD = this.state.TransactionDetails.filter(
+          (td) => td.partretamount > 0
+        );
+        break;
+
+      default:
+        break;
+    }
+
+    if (filteredTD.length > 0) {
+      this.setState((prevDate) => ({
+        selectedFilterType: filterType,
+        filterTransactionDetails: filteredTD,
+      }));
+    } else {
+      
+      alert("No Data in " + filterType);
+
+      this.setState((prevDate) => ({
+        selectedFilterType: "ALL",
+      }));
+    }
+  };
+
   render() {
     const {
       TransactionDetails,
@@ -416,6 +469,8 @@ class FollowupCustomers extends Component {
       followUpCustomers,
       dateSelected,
       isDateWrong,
+      selectedFilterType,
+      filterTransactionDetails,
     } = this.state;
     const columns =
       TransactionDetails.length > 0 ? Object.keys(TransactionDetails[0]) : "";
@@ -429,6 +484,7 @@ class FollowupCustomers extends Component {
     const submitCustomerFollowup = () => this.submitCustomerFollowup();
 
     const handleDateSelection = (e) => this.handleDateSelection(e);
+    const handleFilterButton = (e) => this.handleFilterButton(e);
 
     return (
       <>
@@ -437,14 +493,39 @@ class FollowupCustomers extends Component {
         </div>
 
         {TransactionDetails.length > 0 ? (
-          <TableDataWithPagination
-            tableType={"OPERATIONAL-TABLE"}
-            handleClickEvent={(rowData) =>
-              this.handleFollowupTableSelection(rowData)
-            }
-            tablecolumns={columns}
-            tablerows={TransactionDetails}
-          />
+          <>
+            <div className="follow-up-filters">
+              <ButtonGroup variant="outlined" aria-label="Basic button group">
+                {filterButtons.map((filterName, index) => (
+                  <Button
+                    key={index}
+                    className={
+                      selectedFilterType === filterName
+                        ? "selected-filter-type-btn"
+                        : ""
+                    }
+                    onClick={() => handleFilterButton(filterName)}
+                  >
+                    {filterName}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </div>
+
+            <TableDataWithPagination
+              tableType={"OPERATIONAL-TABLE"}
+              handleClickEvent={(rowData) =>
+                this.handleFollowupTableSelection(rowData)
+              }
+              tablecolumns={columns}
+              // tablerows={TransactionDetails}
+              tablerows={
+                selectedFilterType === "ALL"
+                  ? TransactionDetails
+                  : filterTransactionDetails
+              }
+            />
+          </>
         ) : (
           <h4 className="follow-up-no-content">
             {" "}

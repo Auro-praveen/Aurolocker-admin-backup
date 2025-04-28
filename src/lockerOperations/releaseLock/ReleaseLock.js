@@ -19,6 +19,9 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import Snackbar from "@mui/material/Snackbar";
 
+import dynamicLockerLayout from "../../GlobalVariable/dynamicLockerLayout.json";
+import DynamicTempleLockers from "../temple_layouts/DynamicTempleLayout.json";
+
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -58,6 +61,7 @@ import LULUHYDUGlayout from "../layoutsAccorsingTerminalId/LULUHYDUGlayout";
 import CommonLayoutForAll from "../layoutsAccorsingTerminalId/CommonLayoutForAll";
 import StateWiseFormSelection from "../../GlobalVariable/StateWiseFormSelection";
 import { commonApiForGetConenction } from "../../GlobalVariable/GlobalModule";
+import CommonTempleLayouts from "../temple_layouts/CommonTempleLayouts";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
@@ -1083,14 +1087,82 @@ const ReleaseLock = (props) => {
             </>
           ) : (
             <>
-              <CommonLayoutForAll
+              {Auth.accessAppType === "TEMPLE-LOCKERS" ? (
+                <>
+                  {Object.keys(DynamicTempleLockers).includes(
+                    releaseLockObject.terminalID
+                  ) ? (
+                    <>
+                      <CommonTempleLayouts
+                        isMalfunction={false}
+                        terminalID={releaseLockObject.terminalID}
+                        lockersInUse={inProgressLocks}
+                        userSelectedLock={releaseLockObject.LockerNo}
+                        userSelectedLockHandler={userSelectedLockFun.bind(this)}
+                      />
+
+                      <div className="releaselock-button-container">
+                        <Button
+                          variant="contained"
+                          color="info"
+                          onClick={() => sendReleaseLockToServer()}
+                          fullWidth
+                        >
+                          submit
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <h4 style={{ textAlign: "center" }}>
+                      No suitable layout found for the terminal id:
+                      {releaseLockObject.terminalID}
+                    </h4>
+                  )}{" "}
+                </>
+              ) : (
+                <>
+                  {" "}
+                  {Object.keys(dynamicLockerLayout).includes(
+                    releaseLockObject.terminalID
+                  ) ? (
+                    <>
+                      <CommonLayoutForAll
+                        isMalfunction={false}
+                        terminalID={releaseLockObject.terminalID}
+                        lockersInUse={inProgressLocks}
+                        userSelectedLock={releaseLockObject.LockerNo}
+                        userSelectedLockHandler={userSelectedLockFun.bind(this)}
+                      />
+
+                      <div className="releaselock-button-container">
+                        <Button
+                          variant="contained"
+                          color="info"
+                          onClick={() => sendReleaseLockToServer()}
+                          fullWidth
+                        >
+                          submit
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <h4 style={{ textAlign: "center" }}>
+                      No suitable layout found for the terminal id:{" "}
+                      {releaseLockObject.terminalID}
+                    </h4>
+                  )}{" "}
+                </>
+              )}
+
+              {/* <CommonLayoutForAll
                 isMalfunction={false}
                 terminalID={releaseLockObject.terminalID}
                 lockersInUse={inProgressLocks}
                 userSelectedLock={releaseLockObject.LockerNo}
                 userSelectedLockHandler={userSelectedLockFun.bind(this)}
-              />
-              <div className="releaselock-button-container">
+              /> */}
+
+              {/* <div className="releaselock-button-container">
                 <Button
                   variant="contained"
                   color="info"
@@ -1099,7 +1171,7 @@ const ReleaseLock = (props) => {
                 >
                   submit
                 </Button>
-              </div>
+              </div> */}
 
               {/* <p className="text-paragraph">
                 No Layout For the Selected Terminal Id Please Select the valid

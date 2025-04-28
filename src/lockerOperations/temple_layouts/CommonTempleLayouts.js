@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import lockers from "../../GlobalVariable/lockers.json";
 import Button from "@mui/material/Button";
 
@@ -10,12 +8,13 @@ import Dialog from "@mui/material/Dialog";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MuiAlert from "@mui/material/Alert";
 import { Alert, Box, Snackbar } from "@mui/material";
-import LayoutsConfig from "./LayoutsConfig";
+// import LayoutsConfig from "./LayoutsConfig";
+import TempleLayoutConfig from "./TempleLayoutConfig";
 
-const CommonLayoutForAll = (props) => {
+const CommonTempleLayouts = (props) => {
   const locksMapping = {
     allLocks: lockers.LULU,
     seatNoA: ["M1", "S2", "S3", "S4", "S5", "M6"],
@@ -56,15 +55,13 @@ const CommonLayoutForAll = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log("praveenenenenenenene");
-    
-  },[])
+  //   useEffect(() => {
+  //     console.log("praveenenenenenenene");
+  //   }, []);
 
   useEffect(() => {
     setTerminalID(props.terminalID);
     console.log(props.terminalID);
-    
   }, [props.terminalID]);
 
   const hanleEvent = (e) => {
@@ -100,7 +97,7 @@ const CommonLayoutForAll = (props) => {
     <div>
       <div>
         {terminalID && (
-          <LayoutsConfig
+          <TempleLayoutConfig
             terminalID={terminalID}
             userSelectedLock={userSelectedLock}
             inProgressLocks={inProgressLocks}
@@ -189,4 +186,4 @@ const CommonLayoutForAll = (props) => {
   );
 };
 
-export default CommonLayoutForAll;
+export default CommonTempleLayouts;
