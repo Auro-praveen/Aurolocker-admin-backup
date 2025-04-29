@@ -1,11 +1,12 @@
 {
-  "serverUrl": "https://temple.tuckit.in:8443/AuroLocker/AuroClientRequest",
-  "localServerPath": "https://temple.tuckit.in:8443/AuroAutoLocker/",
-  "stationServerUrl": "https://temple.tuckit.in:8443/AuroLocker/AuroClientRequest",
-  "stationLocalServerPath": "https://temple.tuckit.in:8443/AuroAutoLocker/",
+  "serverUrl": "https://app.tuckit.in:8443/AuroLocker/AuroClientRequest",
+  "localServerPath": "https://app.tuckit.in:8443/AuroAutoLocker/",
+  "stationServerUrl": "https://indrail.tuckit.in:8443/AuroLocker/AuroClientRequest",
+  "stationLocalServerPath": "https://indrail.tuckit.in:8443/AuroAutoLocker/",
   "templeServerUrl": "https://temple.tuckit.in:8443/AuroTempleLBEngine/AuroClientRequest",
   "templeLocalServerPath": "https://temple.tuckit.in:8443/AuroAutoLocker/",
-  "serverUrlUNCLOCKMALL": "https://temple.tuckit.in:8443/AuroLocker/AdminRequestResp",
-  "serverUrlUNCLOCKSTATION": "https://temple.tuckit.in:8443/AuroLocker/AdminRequestResp",
+  "serverUrlUNCLOCKMALL": "https://app.tuckit.in:8443/AuroLocker/AdminRequestResp",
+  "serverUrlUNCLOCKSTATION": "https://indrail.tuckit.in:8443/AuroLocker/AdminRequestResp",
   "serverUrlUNCLOCKTEMPLE": "https://temple.tuckit.in:8443/AuroLocker/AdminRequestResp"
+
 }

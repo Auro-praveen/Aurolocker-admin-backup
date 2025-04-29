@@ -78,7 +78,7 @@ function LoginMainPage() {
   const redirectPath = location.pathname?.path || "/";
 
   // Hide All the Console.log
-  // console.log = function () {};
+  console.log = function () {};
 
   const handleLoginAuth = (e) => {
     setIsActive(false);
